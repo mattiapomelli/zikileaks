@@ -36,13 +36,7 @@ interface verificationFormFields {
   keywords: string;
 }
 
-const options = [
-  "I own a nft to verify this",
-  "I have commited to the repository to verify this",
-];
-
 export const VerificationForm = ({ onVerifyClick }: VerificationFormProps) => {
-  const [selected, setSelected] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [userInput, setUserInput] = useState("");
@@ -50,7 +44,7 @@ export const VerificationForm = ({ onVerifyClick }: VerificationFormProps) => {
 
   const {
     register,
-    handleSubmit,
+
     formState: { errors },
   } = useForm<verificationFormFields>();
 

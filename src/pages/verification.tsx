@@ -3,6 +3,7 @@ import React from "react";
 import { Stepper } from "@components/basic/stepper";
 import { PublicationForm } from "@components/publication/publication-form";
 import { PublicationFormText } from "@components/publication/publication-form-text";
+import { RailgunComponent } from "@components/verification/railgun-component";
 import { VerificationForm } from "@components/verification/verification-form";
 import { VerificationFormText } from "@components/verification/verification-form-text";
 
@@ -36,6 +37,11 @@ const Verification: NextPage = () => {
           ) : null}
           {activeStep === 2 ? (
             <>
+              <RailgunComponent onVerifyClick={handleVerifyClick} />
+            </>
+          ) : null}
+          {activeStep === 3 ? (
+            <>
               <PublicationFormText
                 title={"Would you like to submit a report?"}
                 description={
@@ -43,11 +49,6 @@ const Verification: NextPage = () => {
                 }
               />
               <PublicationForm />
-            </>
-          ) : null}
-          {activeStep === 3 ? (
-            <>
-              <h1 className="text-6xl"> Thank you</h1>
             </>
           ) : null}
         </div>

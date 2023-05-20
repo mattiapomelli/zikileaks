@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+/* eslint-disable unicorn/filename-case */
 import { useState } from "react";
 
 import { Address } from "@components/address";
@@ -7,7 +7,11 @@ import { CopyButton } from "@components/basic/copy-button";
 import { Spinner } from "@components/basic/spinner";
 import { CreateWalletResponse, useRailgun } from "@contexts/railgun-provider";
 
-const RailgunPage: NextPage = () => {
+interface RailGunFormProps {
+  onVerifyClick: () => void;
+}
+
+export const RailgunComponent = ({ onVerifyClick }: RailGunFormProps) => {
   const { loading, wallet, createWallet, setWallet } = useRailgun();
   const [walletInfo, setWalletInfo] = useState<CreateWalletResponse>();
 
@@ -25,8 +29,8 @@ const RailgunPage: NextPage = () => {
       zkAddress: walletInfo.zkAddress,
       encryptionKey: walletInfo.encryptionKey,
     });
+    onVerifyClick();
   };
-
   if (loading) {
     return (
       <div className="my-14 flex justify-center">
@@ -40,7 +44,9 @@ const RailgunPage: NextPage = () => {
       <div className="mt-10 flex justify-center">
         {walletInfo ? (
           <div className="max-w-md">
-            <h2 className="mb-4 text-xl font-bold">Created new wallet!</h2>
+            <h2 className="mb-4 text-xl font-bold">
+              Success created a new wallet!
+            </h2>
             <p className="mb-4">
               Make sure to copy your mnemonic and store it in a safe place.
             </p>
@@ -96,10 +102,10 @@ const RailgunPage: NextPage = () => {
   }
 
   return (
-    <div className="mt-10 flex justify-center">
-      <Address address={wallet.zkAddress as `0x${string}`} />
-    </div>
+    <>
+      <div className="mt-10 flex justify-center">
+        <Address address={wallet.zkAddress as `0x${string}`} />
+      </div>
+    </>
   );
 };
-
-export default RailgunPage;
