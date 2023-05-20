@@ -5,6 +5,10 @@ import { Button } from "@components/basic/button";
 import { Input } from "@components/basic/input";
 import { Select } from "@components/basic/select";
 
+interface VerificationFormProps {
+  onVerifyClick: () => void;
+}
+
 interface verificationFormFields {
   title: string;
   price: string;
@@ -12,12 +16,13 @@ interface verificationFormFields {
   description: string;
   keywords: string;
 }
+
 const options = [
   "I own a nft to verify this",
   "I have commited to the repository to verify this",
 ];
 
-export const VerificationForm = () => {
+export const VerificationForm = ({ onVerifyClick }: VerificationFormProps) => {
   const [selected, setSelected] = useState<string | undefined>();
 
   const {
@@ -27,23 +32,7 @@ export const VerificationForm = () => {
   } = useForm<verificationFormFields>();
 
   const onSubmit = handleSubmit(async () => {
-    // if (!asset) {
-    //   await uploadVideo();
-    // } else {
-    //   if (!asset.playbackId || !image) return;
-    //   const { title, description, price, referral, keywords } = data;
-    //   createCourse({
-    //     title,
-    //     description,
-    //     price: ethers.utils.parseEther(price),
-    //     referral: Number(referral),
-    //     image,
-    //     // image: new File([], ""),
-    //     videoPlaybackId: asset.playbackId,
-    //     // videoPlaybackId: "1806vd0wgt1rmgmo",
-    //     keywords: keywords.split(",").map((value) => value.trim()),
-    //   });
-    // }
+    await onVerifyClick();
   });
 
   return (
@@ -74,6 +63,7 @@ export const VerificationForm = () => {
           className="mt-2"
           block
           type="submit"
+
           // loading={isLoading || uploadIsLoading}
           // disabled={isLoading || uploadIsLoading}
         >
