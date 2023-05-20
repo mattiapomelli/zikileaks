@@ -5,7 +5,7 @@ import { Button } from "@components/basic/button";
 import { Input } from "@components/basic/input";
 import { Select } from "@components/basic/select";
 
-interface uploadFormFields {
+interface verificationFormFields {
   title: string;
   price: string;
   referral: string;
@@ -17,14 +17,14 @@ const options = [
   "I have commited to the repository to verify this",
 ];
 
-export const UploadForm = () => {
+export const VerificationForm = () => {
+  const [selected, setSelected] = useState<string | undefined>();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<uploadFormFields>();
-
-  const [selected, setSelected] = useState<string | undefined>();
+  } = useForm<verificationFormFields>();
 
   const onSubmit = handleSubmit(async () => {
     // if (!asset) {

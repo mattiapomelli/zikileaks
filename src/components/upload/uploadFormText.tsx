@@ -12,9 +12,9 @@ export const UploadFormText = ({
 }: uploadFormTextValues) => {
   return (
     <>
-      <div className="grid grid-cols-12 text-secondary mt-20 md:mt-40">
-        <h3 className="font-bold col-start-2 col-span-3 text-6xl  ">{title}</h3>
-        <p className="my-10  col-start-2 col-span-6 md:my-20">{description}</p>
+      <div className="grid grid-cols-12 text-secondary ">
+        <h3 className="font-bold col-start-1 col-span-8 text-6xl  ">{title}</h3>
+        <p className="my-10  col-start-1 col-span-8 md-4">{description}</p>
       </div>
     </>
   );
