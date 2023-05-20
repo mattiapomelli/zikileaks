@@ -1,6 +1,5 @@
 import cx from "classnames";
 import { twMerge } from "tailwind-merge";
-import { useEnsName } from "wagmi";
 
 interface AddressProps {
   address: `0x${string}`;
@@ -12,11 +11,9 @@ const formatAddress = (address: string) => {
 };
 
 export const Address = ({ address, className }: AddressProps) => {
-  const { data: ensName } = useEnsName({ address });
-
   return (
     <span className={twMerge(cx("font-medium", className))}>
-      {ensName ?? formatAddress(address)}
+      {formatAddress(address)}
     </span>
   );
 };
