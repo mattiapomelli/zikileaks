@@ -21,6 +21,7 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("tailwindcss-radix")(),
     require("daisyui"),
+    require("@tailwindcss/line-clamp"),
   ],
   daisyui: {
     themes: [
