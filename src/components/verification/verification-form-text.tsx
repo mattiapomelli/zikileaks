@@ -12,11 +12,13 @@ export const VerificationFormText = ({
 }: verificationFormTextValues) => {
   return (
     <>
-      <div className="grid grid-cols-12 text-secondary ">
-        <h3 className="font-bold col-start-1 col-span-10 text-6xl  ">
+      <div className="grid grid-cols-12  text-base-100">
+        <h3 className="font-bold col-start-1 col-span-10 text-accent text-4xl ">
           {title}
         </h3>
-        <p className="my-10  col-start-1 col-span-10 md:my-20">{description}</p>
+        <p className="my-10  col-start-1 col-span-10 md:my-20 text-accent ">
+          {description}
+        </p>
       </div>
     </>
   );

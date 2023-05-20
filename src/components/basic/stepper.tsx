@@ -1,5 +1,5 @@
-import React from "react";
 import { useTransition, animated } from "@react-spring/web";
+import React from "react";
 
 interface StepperProps {
   activeStep: number;
@@ -24,12 +24,14 @@ const Stepper = ({ activeStep }: StepperProps) => {
 
   return (
     <>
-      <h3 className="font-bold text-6xl">{activeStep}</h3>
-      <p className="my-10 md:my-20 max-w-sm">{stepText}</p>
+      <h3 className="font-bold text-6xl  text-neutral">{activeStep}</h3>
+      <p className="my-10 md:my-20 max-w-sm  text-neutral">{stepText}</p>
       <ul className="steps steps-vertical">
         {transition((style, step) => (
           <animated.li
-            className={`step ${step === activeStep ? "step-primary" : ""}`}
+            className={`step ${
+              step === activeStep ? "step-primary text-neutral" : ""
+            }`}
             style={style}
             key={step}
           >

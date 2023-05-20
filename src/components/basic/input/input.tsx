@@ -164,7 +164,7 @@ export const Input = forwardRef(
               iconClass,
               iconSizeClassname[size],
               rightIconPositionClassname[size],
-              "text-base-content-neutral",
+              "text-white",
             )}
           >
             {rightIcon}

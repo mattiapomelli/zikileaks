@@ -18,6 +18,7 @@ module.exports = {
     },
   },
   plugins: [
+    require("@tailwindcss/typography"),
     require("@tailwindcss/forms"),
     require("tailwindcss-radix")(),
     require("daisyui"),
