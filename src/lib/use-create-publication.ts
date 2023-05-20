@@ -17,12 +17,14 @@ import { useMutation } from "wagmi";
 import { LENS_TAG } from "@constants/lens";
 import { useRailgun } from "@contexts/railgun-provider";
 import { uploadToBundlr } from "@utils/bundlr";
+import { uploadFileToIPFS } from "@utils/ipfs";
 
 const COLLECT_PRICE = BigNumber.from("1000000000000000000"); // 1 MATIC
 
 export interface CreatePublicationData {
   title: string;
   description: string;
+  file: File;
 }
 
 interface UseCreateCourseOptions {
@@ -41,13 +43,16 @@ export const useCreatePublication = (options?: UseCreateCourseOptions) => {
   });
 
   const mutation = useMutation(
-    async ({ title, description }: CreatePublicationData) => {
+    async ({ title, description, file }: CreatePublicationData) => {
       if (!wallet) return;
 
       // Get public key from private viewing key
       const privateViewingKey = getRailgunWalletPrivateViewingKey(wallet.id);
       const pubKey = await ed.getPublicKeyAsync(privateViewingKey);
       const pubKeyHex = Buffer.from(pubKey).toString("hex");
+
+      const fileUri = await uploadFileToIPFS(file);
+      if (!fileUri) return;
 
       const res = await create({
         content: `description #${LENS_TAG}`,
@@ -78,6 +83,12 @@ export const useCreatePublication = (options?: UseCreateCourseOptions) => {
                 displayType: "String",
                 value: pubKeyHex,
                 traitType: "pubKey",
+              },
+              {
+                // @ts-ignore
+                displayType: "String",
+                value: fileUri,
+                traitType: "fileUri",
               },
             ],
           },

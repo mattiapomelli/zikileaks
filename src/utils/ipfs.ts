@@ -35,3 +35,29 @@ export const uploadToIPFS = async (data: Record<string, any>) => {
     console.error("IPFS error ", error);
   }
 };
+
+export const uploadFileToIPFS = async (file: File) => {
+  console.log("File: ", file);
+
+  try {
+    const authorization =
+      "Basic " +
+      btoa(
+        process.env.NEXT_PUBLIC_INFURA_ID +
+          ":" +
+          process.env.NEXT_PUBLIC_INFURA_SECRET,
+      );
+    const ipfs = create({
+      url: "https://infura-ipfs.io:5001/api/v0",
+      headers: {
+        authorization,
+      },
+    });
+
+    const arr = await file.arrayBuffer();
+    const result = await ipfs.add(arr);
+    return result.path;
+  } catch (error) {
+    console.error("IPFS error ", error);
+  }
+};
