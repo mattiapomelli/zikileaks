@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 
+import { LensProvider } from "@lens-protocol/react-web";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { DefaultSeo } from "next-seo";
 import { ThemeProvider } from "next-themes";
@@ -11,6 +12,7 @@ import { publicProvider } from "wagmi/providers/public";
 import { CHAIN } from "@constants/chains";
 import { RailgunProvider } from "@contexts/railgun-provider";
 import { DefaultLayout } from "@layouts/default-layout";
+import { lensConfig } from "@utils/lens-provider";
 import { env } from "env.mjs";
 
 import SEO from "../../next-seo.config";
@@ -46,12 +48,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={client}>
       <RainbowKitProvider chains={chains}>
-        <ThemeProvider>
-          <RailgunProvider>
-            <DefaultSeo {...SEO} />
-            {getLayout(<Component {...pageProps} />)}
-          </RailgunProvider>
-        </ThemeProvider>
+        <RailgunProvider>
+          <LensProvider config={lensConfig}>
+            <ThemeProvider>
+              <DefaultSeo {...SEO} />
+              {getLayout(<Component {...pageProps} />)}
+            </ThemeProvider>
+          </LensProvider>
+        </RailgunProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   );

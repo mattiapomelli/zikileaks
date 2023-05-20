@@ -16,7 +16,7 @@ import { polygon, polygonMumbai, hardhat } from "wagmi/chains";
 
 import { WMATIC_ADDRESS } from "@constants/addresses";
 import { CHAIN } from "@constants/chains";
-import { uploadToBundlr } from "@utils/bundlr";
+import { uploadToBundlrWithSigner } from "@utils/bundlr";
 
 interface Data {
   title: string;
@@ -126,7 +126,7 @@ export default async function handler(
     }
 
     // Upload metadata to Bundlr
-    const uri = await uploadToBundlr(metadata, wallet);
+    const uri = await uploadToBundlrWithSigner(metadata, wallet);
     if (!uri) {
       return res.status(500).send({ message: "Failed to upload metadata" });
     }

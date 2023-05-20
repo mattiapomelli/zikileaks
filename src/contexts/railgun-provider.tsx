@@ -269,7 +269,7 @@ export const useRailgun = () => {
   const context = useContext(RailgunContext);
 
   if (context === undefined) {
-    throw new Error("useApiClient must be used within an AuthProvider");
+    throw new Error("useRailgun must be used within an RailgunProvider");
   }
 
   return context;

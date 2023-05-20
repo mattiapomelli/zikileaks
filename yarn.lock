@@ -2630,6 +2630,13 @@
     tslib "^2.5.0"
     zod "^3.20.6"
 
+"@lens-protocol/wagmi@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@lens-protocol/wagmi/-/wagmi-1.0.1.tgz#efc695413cdac15c598ca7dc323b9d5438de9f19"
+  integrity sha512-CPtyR1BfNZnZi1IznVNZl5OMeoPgUqQYOqpOe8dfUbyqRJrpuxmjHMsR5p2KMTVGwfeV6JQcMIT6Jy+S34J3IQ==
+  dependencies:
+    "@lens-protocol/shared-kernel" "0.7.1"
+
 "@libp2p/interface-connection@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@libp2p/interface-connection/-/interface-connection-4.0.0.tgz#fcc830ca891820fac89a4c6bd4fcc2df4874f49b"
