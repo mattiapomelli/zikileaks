@@ -179,18 +179,20 @@ export const usePrivateTransfer = () => {
       if (transferError) {
         throw transferError;
       }
+      if (!serializedTransaction) {
+        throw new Error("No serialized transaction");
+      }
 
       // ----------------------- Send Transaction -----------------------
       const nonce = await signer.getTransactionCount("latest");
       console.log("Nonce: ", nonce);
 
       const { chain } = NETWORK_CONFIG[network];
-      const transactionRequest: ethers.providers.TransactionRequest =
-        deserializeTransaction(
-          serializedTransaction!,
-          undefined, // nonce (optional)
-          chain.id,
-        );
+      const transactionRequest = deserializeTransaction(
+        serializedTransaction,
+        undefined, // nonce (optional)
+        chain.id,
+      );
 
       // Public wallet to shield from.
       transactionRequest.from = address;
