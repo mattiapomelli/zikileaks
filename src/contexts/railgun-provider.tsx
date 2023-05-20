@@ -23,9 +23,18 @@ interface RailgunWallet {
   id: string;
 }
 
+export interface CreateWalletResponse {
+  id: string;
+  mnemonic: string;
+  address: `0x${string}`;
+  zkAddress: string;
+}
+
 interface RailgunContextValue {
   wallet: RailgunWallet | null;
-  createWallet: () => void;
+  setWallet: (wallet: RailgunWallet) => void;
+  createWallet: () => Promise<CreateWalletResponse | null>;
+  loading: boolean;
 }
 
 const RailgunContext = createContext<RailgunContextValue | undefined>(
@@ -45,6 +54,7 @@ const artifactStore = new ArtifactStore(
 export const RailgunProvider = ({ children }: { children: ReactNode }) => {
   const provider = useProvider();
 
+  const [loading, setLoading] = useState(true);
   const [wallet, setWallet] = useState<RailgunWallet | null>(null);
 
   useEffect(() => {
@@ -85,6 +95,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
       const connectedRailgunWallet = localStorage.getItem("railgun-wallet");
       if (!connectedRailgunWallet) {
         setWallet(null);
+        setLoading(false);
         return;
       }
 
@@ -99,6 +110,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
         id,
         zkAddress: railgunWallet.railgunWalletInfo?.railgunAddress,
       });
+      setLoading(false);
 
       console.log("Connected Railgun wallet: ", railgunWallet);
     };
@@ -106,7 +118,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
     initialize();
   }, []);
 
-  const createWallet = async () => {
+  const createWallet = async (): Promise<CreateWalletResponse | null> => {
     const mnemonic = entropyToMnemonic(randomBytes(16));
     console.log("Mnemonic: ", mnemonic);
 
@@ -132,18 +144,26 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
     );
     console.log("Railgun wallet: ", railgunWallet);
 
+    if (
+      railgunWallet.error ||
+      !railgunWallet.railgunWalletInfo?.id ||
+      !railgunWallet.railgunWalletInfo?.railgunAddress
+    )
+      return null;
+
     localStorage.setItem(
       "railgun-wallet",
       JSON.stringify({
         encryptionKey,
-        id: railgunWallet.railgunWalletInfo?.id,
+        id: railgunWallet.railgunWalletInfo.id,
       }),
     );
 
     return {
+      id: railgunWallet.railgunWalletInfo.id,
       mnemonic,
-      address: wallet.address,
-      zkAddress: railgunWallet.railgunWalletInfo?.railgunAddress,
+      address: wallet.address as `0x${string}`,
+      zkAddress: railgunWallet.railgunWalletInfo.railgunAddress,
     };
   };
 
@@ -151,7 +171,9 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
     <RailgunContext.Provider
       value={{
         wallet,
+        setWallet,
         createWallet,
+        loading,
       }}
     >
       {children}
