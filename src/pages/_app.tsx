@@ -44,16 +44,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     ((page) => <DefaultLayout>{page}</DefaultLayout>);
 
   return (
-    <WagmiConfig client={client}>
-      <RainbowKitProvider chains={chains}>
-        <ThemeProvider>
-          <RailgunProvider>
-            <DefaultSeo {...SEO} />
-            {getLayout(<Component {...pageProps} />)}
-          </RailgunProvider>
-        </ThemeProvider>
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <>
+      <WagmiConfig client={client}>
+        <RainbowKitProvider chains={chains}>
+          <ThemeProvider>
+            <RailgunProvider>
+              <DefaultSeo {...SEO} />
+              {getLayout(<Component {...pageProps} />)}
+            </RailgunProvider>
+          </ThemeProvider>
+        </RainbowKitProvider>
+      </WagmiConfig>
+    </>
   );
 }
 
