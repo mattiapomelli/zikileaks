@@ -71,14 +71,13 @@ export default function Level1RegisterUser() {
       <div className="container">
         {!verifiedUser && (
           <>
-            <h1>Anonymous and Gated Registration</h1>
+            <h1>Verify Your Employment</h1>
             <p className="subtitle-page">
-              Level 1: request for an anonymous userId, a Nouns DAO NFT ownership, a signed message with
-              the username and save it in a database.
+              In order to submit leaked documents on Zikileaks, you should verify your employer. This helps curators assess the validity of your document.
             </p>
 
             <div className="input-group">
-              <label htmlFor="userName">Fill in your name</label>
+              <label htmlFor="userName">Your Employer:</label>
               <input
                 id="userName"
                 type="text"
@@ -101,19 +100,18 @@ export default function Level1RegisterUser() {
         )}
         {verifiedUser && (
           <>
-            <h1>You have been registered</h1>
+            <h1>You Have Been Verified</h1>
             <p className="subtitle-page">
-              Your shared an anonymous userId, proved that you are a member of Nouns DAO NFT Holders
-              group, signed a message with your username and saved it in a local database
+              Thank you for verifying your employment.
             </p>
             <div className="profile-container">
-              <h2 style={{ marginBottom: 10 }}>User Profile</h2>
+              <h2 style={{ marginBottom: 10 }}>Your User ID</h2>
               <div style={{ marginBottom: 10 }}>
                 <b>UserId:</b>
                 <p>{verifiedUser.id}</p>
               </div>
               <div style={{ marginBottom: 10 }}>
-                <b>UserName:</b>
+                <b>Your Verified Employer</b>
                 <p>{verifiedUser.name}</p>
               </div>
             </div>
