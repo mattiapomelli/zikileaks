@@ -1,9 +1,17 @@
-import React from "react";
+import { NextPage } from "next";
 
-import type { NextPage } from "next";
+import { Button } from "@components/basic/button";
+import { useRailgun } from "@contexts/railgun-provider";
 
 const Home: NextPage = () => {
-  return <div>Home</div>;
+  const { wallet, createWallet } = useRailgun();
+
+  return (
+    <div>
+      <p>{wallet?.zkAddress}</p>
+      <Button onClick={createWallet}>Create Railgun Wallet</Button>
+    </div>
+  );
 };
 
 export default Home;
