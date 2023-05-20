@@ -8,9 +8,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { Button } from "@components/basic/button";
 import { Input } from "@components/basic/input";
-import { Select } from "@components/basic/select";
 
 import { devGroups } from "../../../config";
 
