@@ -2,6 +2,7 @@ import {
   ArtifactStore,
   BalancesUpdatedCallback,
   createRailgunWallet,
+  getProver,
   loadProvider,
   loadWalletByID,
   refreshRailgunBalances,
@@ -30,6 +31,7 @@ import { getNetwork, networks } from "@constants/networks";
 interface RailgunWallet {
   zkAddress: string;
   id: string;
+  encryptionKey: string;
 }
 
 export interface CreateWalletResponse {
@@ -124,6 +126,13 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
       );
       console.log("Response: ", response);
 
+      // --- Load a Groth16 prover ---
+      // console.log("Window: ", window.snarkjs);
+
+      // @ts-ignore
+      const groth16 = window.snarkjs.groth16;
+      getProver().setSnarkJSGroth16(groth16);
+
       // --- Load providers ---
       const res = await loadProviders();
       console.log("Providers res: ", res);
@@ -148,6 +157,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
       setWallet({
         id,
         zkAddress: railgunWallet.railgunWalletInfo?.railgunAddress,
+        encryptionKey,
       });
       setLoading(false);
 
@@ -159,6 +169,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
         const tokenBalance = event.erc20Amounts.find(
           (token) => token.tokenAddress === wethAddress,
         );
+        if (!tokenBalance) return;
         const balanceNum = Number(tokenBalance?.amountString);
         const balanceBigNum = BigNumber.from(balanceNum.toString());
 
