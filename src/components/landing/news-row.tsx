@@ -2,10 +2,8 @@ import cx from "classnames";
 import React from "react";
 
 import { CustomLink } from "@components/basic/link";
-
-import { LikeComponent } from "@components/icons/Like-component";
-
-import { DislikeComponent } from "@components/icons/Dislike-component";
+import { DislikeComponent } from "@components/icons/dislike-component";
+import { LikeComponent } from "@components/icons/like-component";
 
 export type NewsFeedRowProps = {
   title: String;
