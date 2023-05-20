@@ -12,7 +12,7 @@ export const VerificationFormText = ({
 }: verificationFormTextValues) => {
   return (
     <>
-      <div className="grid grid-cols-12 text-secondary mt-20 md:mt-40">
+      <div className="grid grid-cols-12 text-secondary ">
         <h3 className="font-bold col-start-1 col-span-10 text-6xl  ">
           {title}
         </h3>

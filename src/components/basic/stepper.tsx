@@ -23,10 +23,10 @@ const Stepper = ({ activeStep }: StepperProps) => {
           Verify Account
         </li>
         <li className={`step ${activeStep === 2 ? "step-primary" : ""}`}>
-          Upload Information
+          Railgun Wallet creation
         </li>
         <li className={`step ${activeStep === 3 ? "step-primary" : ""}`}>
-          Complete
+          Upload Information
         </li>
       </ul>
     </>
