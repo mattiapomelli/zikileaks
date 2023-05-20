@@ -12,10 +12,10 @@
     ]
   },
   "files": {
-    "contracts/Airdrop.sol": {
+    "contracts/verify.sol": {
       "lastModificationDate": 1684590006533,
       "contentHash": "c49e8ccebafdf01624ba8638e13c1abe",
-      "sourceName": "contracts/Airdrop.sol",
+      "sourceName": "contracts/verify.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -60,7 +60,7 @@
       "versionRequirement": "^0.8.17",
       "artifacts": {
         "Airdrop": {
-          "0.8.17+commit.8df45f5f.Darwin.appleclang": "Airdrop.sol/Airdrop.json"
+          "0.8.17+commit.8df45f5f.Darwin.appleclang": "verify.sol/Airdrop.json"
         }
       }
     },
@@ -1093,7 +1093,7 @@
         }
       },
       "imports": [
-        "contracts/Airdrop.sol",
+        "contracts/verify.sol",
         "lib/forge-std/src/Base.sol",
         "lib/forge-std/src/Script.sol",
         "lib/forge-std/src/StdChains.sol",
