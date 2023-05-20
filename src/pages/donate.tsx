@@ -7,7 +7,7 @@ import { ethAddress } from "@constants/common";
 import { useRailgun } from "@contexts/railgun-provider";
 import { useRailgunTx } from "@hooks/use-railgun-tx";
 
-const RailgunPage: NextPage = () => {
+const DonatePage: NextPage = () => {
   const { loading, wallet } = useRailgun();
   const { shield, isLoading } = useRailgunTx();
 
@@ -45,4 +45,4 @@ const RailgunPage: NextPage = () => {
   );
 };
 
-export default RailgunPage;
+export default DonatePage;
