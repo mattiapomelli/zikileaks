@@ -1,0 +1,77 @@
+// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import type { NextApiRequest, NextApiResponse } from "next";
+import {
+  SismoConnect,
+  SismoConnectServerConfig,
+  AuthType,
+  SismoConnectVerifiedResult,
+} from "@sismo-core/sismo-connect-server";
+import { devGroups } from "../../../config";
+
+/************************************************ */
+/********* A SIMPLE IN-MEMORY DATABASE ********** */
+/************************************************ */
+
+type UserType = {
+  id: string;
+  name: string;
+};
+
+// this is a simple in-memory user store
+class MyLocalDataBase {
+  private userStore = new Map<string, UserType>();
+
+  public getUser(userId: string): UserType | undefined {
+    return this.userStore.get(userId);
+  }
+
+  public setUser(user: UserType): void {
+    this.userStore.set(user.id, user);
+  }
+}
+const userStore = new MyLocalDataBase();
+
+/************************************************ */
+/************* CONFIGURE SISMO CONNECT ********** */
+/************************************************ */
+
+// define the SismoConnect configuration
+const sismoConnectConfig: SismoConnectServerConfig = {
+  // you can create a new Sismo Connect app at https://factory.sismo.io
+  appId: "0x72c0abd705e4be124adc0b9fe1f67a11",
+};
+
+// create a SismoConnect instance
+const sismoConnect = SismoConnect(sismoConnectConfig);
+
+/************************************************ */
+/***************** THE API ROUTE **************** */
+/************************************************ */
+
+// this is the API route that is called by the SismoConnectButton
+export default async function handler(req: NextApiRequest, res: NextApiResponse<UserType | void>) {
+  const { response } = req.body;
+
+  console.log("response", response);
+  try {
+    const result: SismoConnectVerifiedResult = await sismoConnect.verify(response, {
+      auths: [{ authType: AuthType.VAULT }],
+      claims: [{ groupId: devGroups[0].groupId }],
+    });
+
+    const user = {
+      // the userId is an app-specific, anonymous identifier of a vault
+      // userId = hash(userVaultSecret, appId).
+      id: result.getUserId(AuthType.VAULT),
+      name: result.getSignedMessage(),
+    };
+
+    // save the user in the user store DB
+    userStore.setUser(user);
+
+    res.status(200).send(user);
+  } catch (e: any) {
+    console.error(e);
+    res.status(400).send(null);
+  }
+}
