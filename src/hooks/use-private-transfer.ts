@@ -11,8 +11,9 @@ import {
   TransactionGasDetailsSerialized,
   deserializeTransaction,
 } from "@railgun-community/shared-models";
+import axios from "axios";
 import { ethers } from "ethers";
-import { useAccount, useMutation, useSigner } from "wagmi";
+import { useAccount, useMutation, useProvider, useSigner } from "wagmi";
 
 import { CHAIN } from "@constants/chains";
 import { getNetwork } from "@constants/networks";
@@ -25,7 +26,28 @@ interface UsePrivateTransferData {
   recipient: string;
 }
 
+const getGasPrices = async () => {
+  const { data } = await axios({
+    method: "get",
+    url: "https://gasstation-mainnet.matic.network/v2",
+  });
+  const maxFeePerGas = ethers.utils.parseUnits(
+    Math.ceil(data.fast.maxFee) + "",
+    "gwei",
+  );
+  const maxPriorityFeePerGas = ethers.utils.parseUnits(
+    Math.ceil(data.fast.maxPriorityFee) + "",
+    "gwei",
+  );
+
+  return {
+    maxFeePerGas,
+    maxPriorityFeePerGas,
+  };
+};
+
 export const usePrivateTransfer = () => {
+  const provider = useProvider();
   const { data: signer } = useSigner();
   const { wallet } = useRailgun();
   const { address } = useAccount();
@@ -38,7 +60,7 @@ export const usePrivateTransfer = () => {
       tokenDecimals,
       recipient,
     }: UsePrivateTransferData) => {
-      if (!wallet || !signer) return;
+      if (!wallet || !signer || !address) return;
 
       // ----------------------- Transaction Details -----------------------
       const encryptionKey = wallet.encryptionKey;
@@ -58,7 +80,7 @@ export const usePrivateTransfer = () => {
       ];
 
       // Minimum gas price, only required for relayed transaction.
-      // const overallBatchMinGasPrice = "0x10000";
+      const overallBatchMinGasPrice = "0";
 
       // Token fee to pay Relayer.
       // const relayerFeeERC20Recipient: RailgunERC20AmountRecipient = {
@@ -81,10 +103,15 @@ export const usePrivateTransfer = () => {
       const {
         maxFeePerGas: originalMaxFeePerGas,
         maxPriorityFeePerGas: originalMaxPriorityFeePerGas,
-      } = await signer.getFeeData();
-      if (!originalMaxFeePerGas || !originalMaxPriorityFeePerGas) {
-        throw new Error("No gas prices");
-      }
+      } = await getGasPrices();
+
+      // const {
+      //   maxFeePerGas: originalMaxFeePerGas,
+      //   maxPriorityFeePerGas: originalMaxPriorityFeePerGas,
+      // } = await signer.getFeeData();
+      // if (!originalMaxFeePerGas || !originalMaxPriorityFeePerGas) {
+      //   throw new Error("No gas prices");
+      // }
 
       const originalGasDetailsSerialized: TransactionGasDetailsSerialized = {
         evmGasType: EVMGasType.Type2, // Depends on the chain (BNB uses type 0)
@@ -141,7 +168,7 @@ export const usePrivateTransfer = () => {
         [], // nftAmountRecipients
         undefined,
         sendWithPublicWallet,
-        undefined,
+        overallBatchMinGasPrice,
         progressCallback,
       );
       if (proofError) {
@@ -149,10 +176,14 @@ export const usePrivateTransfer = () => {
       }
 
       // ----------------------- Get Gas Prices -----------------------
-      const { maxFeePerGas, maxPriorityFeePerGas: maxPriorityFeePerGas } =
-        await signer.getFeeData();
-      if (!maxFeePerGas || !maxPriorityFeePerGas || !gasEstimateString) {
-        throw new Error("No gas prices");
+      const { maxFeePerGas, maxPriorityFeePerGas } = await getGasPrices();
+      // const { maxFeePerGas, maxPriorityFeePerGas } = await signer.getFeeData();
+      // if (!maxFeePerGas || !maxPriorityFeePerGas || !gasEstimateString) {
+      //   throw new Error("No gas prices");
+      // }
+
+      if (!gasEstimateString) {
+        throw new Error("No gas estimate");
       }
 
       const gasDetailsSerialized: TransactionGasDetailsSerialized = {
@@ -173,7 +204,7 @@ export const usePrivateTransfer = () => {
           [], // nftAmountRecipients
           undefined,
           sendWithPublicWallet,
-          undefined,
+          overallBatchMinGasPrice,
           gasDetailsSerialized,
         );
       if (transferError) {
@@ -184,13 +215,13 @@ export const usePrivateTransfer = () => {
       }
 
       // ----------------------- Send Transaction -----------------------
-      const nonce = await signer.getTransactionCount("latest");
+      const nonce = await provider.getTransactionCount(address, "pending");
       console.log("Nonce: ", nonce);
 
       const { chain } = NETWORK_CONFIG[network];
       const transactionRequest = deserializeTransaction(
         serializedTransaction,
-        undefined, // nonce (optional)
+        nonce, // nonce (optional)
         chain.id,
       );
 
