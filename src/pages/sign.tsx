@@ -37,10 +37,10 @@ const SignPage: NextPage = () => {
       data: {
         title: "Title",
         description: "Description",
-        zkAddress: wallet,
+        zkAddress: wallet.zkAddress,
         pubKey: pubKeyHex,
       },
-      signature: `${signatureHex}`,
+      signature: signatureHex,
     });
 
     console.log("Reponse: ", res.data);
