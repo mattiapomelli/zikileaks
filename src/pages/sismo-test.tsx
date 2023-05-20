@@ -52,7 +52,7 @@ export default function Level1RegisterUser() {
       });
     } catch (e) {
       // Else if the proof is invalid, we show an error message
-      setError("Invalid response");
+      setError("It looks like you aren't employed by this organization.");
       console.error(e);
     } finally {
       // We set the loading state to false to show the user profile
@@ -93,7 +93,7 @@ export default function Level1RegisterUser() {
               claims={[{ groupId: "0x1ca383268ca46c64587dd4ef9bd1261d"}]}
               onResponse={(response: SismoConnectResponse) => verify(response)}
               loading={loading}
-              text="Register with Sismo"
+              text="Verify Employment with Sismo"
             />
             <>{error}</>
           </>
