@@ -18,6 +18,7 @@
     "@radix-ui/react-dialog": "^1.0.0",
     "@radix-ui/react-tooltip": "^1.0.0",
     "@railgun-community/quickstart": "^4.4.3",
+    "@railgun-community/shared-models": "^4.2.2",
     "@rainbow-me/rainbowkit": "^0.12.7",
     "@sismo-core/sismo-connect-react": "^0.0.13",
     "@sismo-core/sismo-connect-server": "^0.0.11",

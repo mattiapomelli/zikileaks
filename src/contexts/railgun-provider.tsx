@@ -1,9 +1,13 @@
 import {
   ArtifactStore,
+  // BalancesUpdatedCallback,
   createRailgunWallet,
+  loadProvider,
   loadWalletByID,
+  // setOnMerkletreeScanCallback,
   startRailgunEngine,
 } from "@railgun-community/quickstart";
+// import { setOnBalanceUpdateCallback } from "@railgun-community/quickstart";
 import { ethers } from "ethers";
 import { entropyToMnemonic, randomBytes } from "ethers/lib/utils";
 import LevelDB from "level-js";
@@ -17,6 +21,8 @@ import {
 } from "react";
 import { useProvider } from "wagmi";
 import { polygon } from "wagmi/chains";
+
+import { getNetwork, networks } from "@constants/networks";
 
 interface RailgunWallet {
   zkAddress: string;
@@ -41,6 +47,25 @@ const RailgunContext = createContext<RailgunContextValue | undefined>(
   undefined,
 );
 
+export const loadProviders = async () => {
+  // Whether to forward debug logs from Fallback Provider.
+  const shouldDebug = true;
+  return Promise.all(
+    Object.keys(networks).map(async (chainIdString) => {
+      const chainId = Number(chainIdString);
+      const { railgunNetworkName, fallbackProviders } = getNetwork(chainId);
+      return {
+        chainId,
+        providerInfo: await loadProvider(
+          fallbackProviders,
+          railgunNetworkName,
+          shouldDebug,
+        ),
+      };
+    }),
+  );
+};
+
 const artifactStore = new ArtifactStore(
   async (path: string) => {
     return localforage.getItem(path);
@@ -59,6 +84,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const initialize = async () => {
+      // --- Initialize Railgun Engine ---
       // Name for your wallet implementation.
       // Encrypted and viewable in private transaction history.
       // Maximum of 16 characters, lowercase.
@@ -83,7 +109,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
       //  load private wallets or balances.
       const skipMerkletreeScans = false;
 
-      startRailgunEngine(
+      const response = startRailgunEngine(
         walletSource,
         db,
         shouldDebug,
@@ -91,8 +117,15 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
         useNativeArtifacts,
         skipMerkletreeScans,
       );
+      console.log("Response: ", response);
 
+      // --- Load providers ---
+      const res = await loadProviders();
+      console.log("Providers res: ", res);
+
+      // --- Get Connected Railgun Wallet ---
       const connectedRailgunWallet = localStorage.getItem("railgun-wallet");
+      console.log("Connected Railgun wallet: ", connectedRailgunWallet);
       if (!connectedRailgunWallet) {
         setWallet(null);
         setLoading(false);
@@ -106,6 +139,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
         return;
       }
 
+      console.log("Heree");
       setWallet({
         id,
         zkAddress: railgunWallet.railgunWalletInfo?.railgunAddress,
@@ -113,6 +147,20 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
 
       console.log("Connected Railgun wallet: ", railgunWallet);
+
+      // const onBalanceUpdateCallback: BalancesUpdatedCallback = (event) => {
+      //   console.log(">>> Balance Event: ", event);
+      //   // Do something with the private token balances.
+      // };
+
+      // setOnBalanceUpdateCallback(onBalanceUpdateCallback);
+
+      // const onMerkletreeScanCallback = (event: any) => {
+      //   // Show scan progress in UI with progress bar or loading indicator.
+      //   console.log(">>> Merkle TreeEvent: ", event);
+      // };
+
+      // setOnMerkletreeScanCallback(onMerkletreeScanCallback);
     };
 
     initialize();
