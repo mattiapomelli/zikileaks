@@ -5,11 +5,11 @@ import { Button } from "@components/basic/button";
 import { Spinner } from "@components/basic/spinner";
 import { ethAddress } from "@constants/common";
 import { useRailgun } from "@contexts/railgun-provider";
-import { useRailgunTx } from "@hooks/use-railgun-tx";
+import { useShield } from "@hooks/use-shield";
 
 const DonatePage: NextPage = () => {
   const { loading, wallet } = useRailgun();
-  const { shield, isLoading } = useRailgunTx();
+  const { shield, isLoading } = useShield();
 
   const onDonate = async () => {
     try {

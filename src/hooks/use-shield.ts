@@ -19,7 +19,7 @@ import { ethAddress } from "@constants/common";
 import { getNetwork } from "@constants/networks";
 import { useShieldPrivateKey } from "@hooks/use-shield-private-key";
 
-export const useRailgunTx = () => {
+export const useShield = () => {
   const { data: signer } = useSigner();
   const { address } = useAccount();
   const { shieldPrivateKey, getShieldPrivateKey } = useShieldPrivateKey();
