@@ -123,7 +123,6 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
     console.log("Mnemonic: ", mnemonic);
 
     const wallet = ethers.Wallet.fromMnemonic(mnemonic);
-    console.log("Wallet: ", wallet);
     console.log("Wallet address: ", wallet.address);
 
     const block = await provider.getBlock("latest");
