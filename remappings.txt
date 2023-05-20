@@ -1,0 +1,4 @@
+forge-std/=lib/forge-std/src/
+@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/
+zikileaks/=lib/sismo-connect-packages/packages/sismo-connect-solidity/src/
+forge-std/=lib/forge-std/src/
