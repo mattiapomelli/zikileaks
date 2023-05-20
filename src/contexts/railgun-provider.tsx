@@ -39,6 +39,7 @@ export interface CreateWalletResponse {
   mnemonic: string;
   address: `0x${string}`;
   zkAddress: string;
+  encryptionKey: string;
 }
 
 interface RailgunContextValue {
@@ -245,6 +246,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
       mnemonic,
       address: wallet.address as `0x${string}`,
       zkAddress: railgunWallet.railgunWalletInfo.railgunAddress,
+      encryptionKey,
     };
   };
 
