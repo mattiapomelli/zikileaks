@@ -101,26 +101,17 @@ export const VerificationForm = ({ onVerifyClick }: VerificationFormProps) => {
           error={errors.keywords?.message}
           disabled={true}
         />
-        <input
-          id="userName"
-          type="text"
-          value={userInput}
-          onChange={onUserInput}
-          disabled={loading}
-        />
-        {/* <Input
+
+        <Input
           label="Name of organisation"
           block
           {...register("keywords", { required: "Category is required" })}
           error={errors.keywords?.message}
-          disabled={true}
+          value={userInput}
+          onChange={onUserInput}
+          disabled={loading}
         />
-        <Select
-          label="I can verify I am part of this organisation because"
-          value={selected}
-          onValueChange={setSelected}
-          items={options}
-        /> */}
+
         <SismoConnectButton
           config={sismoConnectConfig}
           auths={[{ authType: AuthType.GITHUB }]}
@@ -130,17 +121,6 @@ export const VerificationForm = ({ onVerifyClick }: VerificationFormProps) => {
           text="Register with Sismo"
         />
         <>{error}</>
-
-        {/* <Button
-          className="mt-2"
-          block
-          type="submit"
-
-          // loading={isLoading || uploadIsLoading}
-          // disabled={isLoading || uploadIsLoading}
-        >
-          Verify Me
-        </Button> */}
       </div>
     </>
   );
