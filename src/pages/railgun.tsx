@@ -23,6 +23,7 @@ const RailgunPage: NextPage = () => {
     setWallet({
       id: walletInfo.id,
       zkAddress: walletInfo.zkAddress,
+      encryptionKey: walletInfo.encryptionKey,
     });
   };
 

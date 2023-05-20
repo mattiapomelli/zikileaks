@@ -1,14 +1,17 @@
 import {
   ArtifactStore,
-  // BalancesUpdatedCallback,
+  BalancesUpdatedCallback,
   createRailgunWallet,
+  getProver,
   loadProvider,
   loadWalletByID,
-  // setOnMerkletreeScanCallback,
+  refreshRailgunBalances,
+  setOnMerkletreeScanCallback,
   startRailgunEngine,
 } from "@railgun-community/quickstart";
-// import { setOnBalanceUpdateCallback } from "@railgun-community/quickstart";
-import { ethers } from "ethers";
+import { setOnBalanceUpdateCallback } from "@railgun-community/quickstart";
+import { NETWORK_CONFIG, NetworkName } from "@railgun-community/shared-models";
+import { BigNumber, ethers } from "ethers";
 import { entropyToMnemonic, randomBytes } from "ethers/lib/utils";
 import LevelDB from "level-js";
 import localforage from "localforage";
@@ -22,11 +25,13 @@ import {
 import { useProvider } from "wagmi";
 import { polygon } from "wagmi/chains";
 
+import { wethAddress } from "@constants/common";
 import { getNetwork, networks } from "@constants/networks";
 
 interface RailgunWallet {
   zkAddress: string;
   id: string;
+  encryptionKey: string;
 }
 
 export interface CreateWalletResponse {
@@ -34,11 +39,13 @@ export interface CreateWalletResponse {
   mnemonic: string;
   address: `0x${string}`;
   zkAddress: string;
+  encryptionKey: string;
 }
 
 interface RailgunContextValue {
   wallet: RailgunWallet | null;
   setWallet: (wallet: RailgunWallet) => void;
+  balance: BigNumber;
   createWallet: () => Promise<CreateWalletResponse | null>;
   loading: boolean;
 }
@@ -81,6 +88,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
 
   const [loading, setLoading] = useState(true);
   const [wallet, setWallet] = useState<RailgunWallet | null>(null);
+  const [balance, setBalance] = useState<BigNumber>(BigNumber.from(0));
 
   useEffect(() => {
     const initialize = async () => {
@@ -119,6 +127,13 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
       );
       console.log("Response: ", response);
 
+      // --- Load a Groth16 prover ---
+      // console.log("Window: ", window.snarkjs);
+
+      // @ts-ignore
+      const groth16 = window.snarkjs.groth16;
+      getProver().setSnarkJSGroth16(groth16);
+
       // --- Load providers ---
       const res = await loadProviders();
       console.log("Providers res: ", res);
@@ -143,28 +158,48 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
       setWallet({
         id,
         zkAddress: railgunWallet.railgunWalletInfo?.railgunAddress,
+        encryptionKey,
       });
       setLoading(false);
 
       console.log("Connected Railgun wallet: ", railgunWallet);
 
-      // const onBalanceUpdateCallback: BalancesUpdatedCallback = (event) => {
-      //   console.log(">>> Balance Event: ", event);
-      //   // Do something with the private token balances.
-      // };
+      const onBalanceUpdateCallback: BalancesUpdatedCallback = (event) => {
+        console.log(">>> Balance Event: ", event);
 
-      // setOnBalanceUpdateCallback(onBalanceUpdateCallback);
+        const tokenBalance = event.erc20Amounts.find(
+          (token) => token.tokenAddress === wethAddress,
+        );
+        if (!tokenBalance) return;
+        const balanceNum = Number(tokenBalance?.amountString);
+        const balanceBigNum = BigNumber.from(balanceNum.toString());
 
-      // const onMerkletreeScanCallback = (event: any) => {
-      //   // Show scan progress in UI with progress bar or loading indicator.
-      //   console.log(">>> Merkle TreeEvent: ", event);
-      // };
+        setBalance(balanceBigNum);
+      };
 
-      // setOnMerkletreeScanCallback(onMerkletreeScanCallback);
+      setOnBalanceUpdateCallback(onBalanceUpdateCallback);
+
+      const onMerkletreeScanCallback = (event: any) => {
+        console.log(">>> Merkle TreeEvent: ", event);
+      };
+
+      setOnMerkletreeScanCallback(onMerkletreeScanCallback);
     };
 
     initialize();
   }, []);
+
+  useEffect(() => {
+    if (!wallet?.id) return;
+
+    const refreshWalletBalance = async () => {
+      const { chain } = NETWORK_CONFIG[NetworkName.Polygon];
+      const res = await refreshRailgunBalances(chain, wallet?.id, false);
+      console.log("Refresh balances res: ", res);
+    };
+
+    refreshWalletBalance();
+  }, [wallet?.id]);
 
   const createWallet = async (): Promise<CreateWalletResponse | null> => {
     const mnemonic = entropyToMnemonic(randomBytes(16));
@@ -211,6 +246,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
       mnemonic,
       address: wallet.address as `0x${string}`,
       zkAddress: railgunWallet.railgunWalletInfo.railgunAddress,
+      encryptionKey,
     };
   };
 
@@ -219,6 +255,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
       value={{
         wallet,
         setWallet,
+        balance,
         createWallet,
         loading,
       }}
