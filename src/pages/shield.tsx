@@ -12,13 +12,14 @@ const DonatePage: NextPage = () => {
   const { shield, isLoading } = useShield();
 
   const onDonate = async () => {
+    if (!wallet) return;
+
     try {
       await shield({
         tokenAddress: ethAddress,
         tokenAmount: "0.01",
         tokenDecimals: 18,
-        recipient:
-          "0zk1qy8n2jl97x4wmjzfn9cewx2ckq62tzdekupxa0vyttn0m5tt64hnhrv7j6fe3z53l7s3n8dq8scck5ma0cwjevhf8p877l6ryh84c88s5ld8avm75mkpvwtz0q5",
+        recipient: wallet.zkAddress as `0x${string}`,
       });
     } catch (e) {
       console.error(e);
