@@ -57,6 +57,8 @@ export const useShield = () => {
     tokenDecimals: number;
     recipient: string;
   }) => {
+    if (!signer) return;
+
     // The shieldPrivateKey enables the sender to decrypt
     // the receiver's address in the future.
     const shieldPrivateKey = await getShieldPrivateKey();
@@ -94,7 +96,8 @@ export const useShield = () => {
     // Public wallet to shield from.
     transactionRequest.from = address;
 
-    return signer!.sendTransaction(transactionRequest);
+    const tx = await signer.sendTransaction(transactionRequest);
+    return tx.wait();
   };
 
   const shieldToken = async ({
@@ -108,6 +111,8 @@ export const useShield = () => {
     tokenDecimals: number;
     recipient: string;
   }) => {
+    if (!signer) return;
+
     // The shieldPrivateKey enables the sender to decrypt
     // the receiver's address in the future.
     const shieldPrivateKey = await getShieldPrivateKey();
@@ -145,7 +150,8 @@ export const useShield = () => {
     // Public wallet to shield from.
     transactionRequest.from = address;
 
-    return signer!.sendTransaction(transactionRequest);
+    const tx = await signer.sendTransaction(transactionRequest);
+    return tx.wait();
   };
 
   return { shield, isLoading, shieldPrivateKey };
