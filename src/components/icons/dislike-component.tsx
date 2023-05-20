@@ -16,7 +16,11 @@ export function DislikeComponent() {
     setIsClicked(!isClicked);
   };
 
-  const color = isClicked ? "red" : isHovered ? "blue" : "currentColor";
+  const color = isClicked
+    ? "fill-primary"
+    : isHovered
+    ? "blue"
+    : "currentColor";
 
   return (
     <svg
