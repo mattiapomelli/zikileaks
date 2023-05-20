@@ -13,7 +13,7 @@ interface uploadFormFields {
   keywords: string;
 }
 
-export const UploadForm = () => {
+export const PublicationForm = () => {
   const {
     register,
     handleSubmit,

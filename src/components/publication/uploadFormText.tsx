@@ -1,19 +1,19 @@
 /* eslint-disable unicorn/filename-case */
 import React from "react";
 
-interface uploadFormTextValues {
+interface publicationFormTextValues {
   title: string;
   description: string;
 }
 
-export const UploadFormText = ({
+export const PublicationFormText = ({
   title,
   description,
-}: uploadFormTextValues) => {
+}: publicationFormTextValues) => {
   return (
     <>
       <div className="grid grid-cols-12 text-secondary ">
-        <h3 className="font-bold col-start-1 col-span-8 text-6xl  ">{title}</h3>
+        <h3 className="font-bold col-start-1 col-span-8 text-2xl  ">{title}</h3>
         <p className="my-10  col-start-1 col-span-8 md-4">{description}</p>
       </div>
     </>

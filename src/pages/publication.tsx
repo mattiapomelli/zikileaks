@@ -1,8 +1,8 @@
 import React from "react";
 
 import { NewsFeed } from "@components/landing/news-feed";
-import { UploadForm } from "@components/upload/upload-form";
-import { UploadFormText } from "@components/upload/uploadFormText";
+import { PublicationForm } from "@components/publication/publication-form";
+import { PublicationFormText } from "@components/publication/uploadFormText";
 
 import type { NextPage } from "next";
 
@@ -11,13 +11,13 @@ const Publication: NextPage = () => {
     <>
       <div className="grid grid-cols-2 gap-4">
         <div className="col-span-1">
-          <UploadFormText
-            title={"Lets work Together! "}
+          <PublicationFormText
+            title={"Would you like to submit a report?"}
             description={
               "By submitting reports to ZikiLeaks, you become an integral part of this movement towards a more open and just society. Your voice matters, and we encourage you to share your insights, knowledge, and experiences. Together, we can make a difference!"
             }
           />
-          <UploadForm />
+          <PublicationForm />
         </div>
         <div className="col-span-1">
           <NewsFeed />
