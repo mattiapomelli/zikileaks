@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import { Address } from "@components/address";
 import { Button } from "@components/basic/button";
+import { CopyButton } from "@components/basic/copy-button";
 import { Spinner } from "@components/basic/spinner";
 import { CreateWalletResponse, useRailgun } from "@contexts/railgun-provider";
 
@@ -37,19 +38,54 @@ const RailgunPage: NextPage = () => {
     return (
       <div className="mt-10 flex justify-center">
         {walletInfo ? (
-          <div>
-            <h2 className="text-xl font-bold">Created new wallet!</h2>
-            <p>Make sure you save your mnemonic phrase somewhere safe.</p>
-            <p>
-              Address:
-              <Address address={walletInfo.address} />
+          <div className="max-w-md">
+            <h2 className="mb-4 text-xl font-bold">Created new wallet!</h2>
+            <p className="mb-4">
+              Make sure to copy your mnemonic and store it in a safe place.
             </p>
-            <p>
-              ZK Address:{" "}
-              <Address address={walletInfo.zkAddress as `0x${string}`} />
-            </p>
-            <p>Mnemonic: {walletInfo?.mnemonic}</p>
-            <Button onClick={connectWallet}>Next</Button>
+            <div className="flex flex-col gap-2">
+              <div className="rounded-box flex items-center justify-between bg-base-200 px-4 py-3">
+                <div className="font-bold">
+                  Your public address: <Address address={walletInfo.address} />
+                </div>
+                <CopyButton
+                  label="Copy"
+                  text={walletInfo.address}
+                  size="sm"
+                  color="neutral"
+                />
+              </div>
+              <div className="rounded-box flex items-center justify-between bg-base-200 px-4 py-3">
+                <div className="font-bold">
+                  Your ZK Address:{" "}
+                  <Address address={walletInfo.zkAddress as `0x${string}`} />
+                </div>
+                <CopyButton
+                  label="Copy"
+                  text={walletInfo.zkAddress}
+                  size="sm"
+                  color="neutral"
+                />
+              </div>
+              <div className="rounded-box flex items-center justify-between bg-base-200 px-4 py-3">
+                <div>
+                  <span className="font-bold">Your Mnemonic:</span>
+                  <p>{walletInfo.mnemonic}</p>
+                </div>
+                <CopyButton
+                  label="Copy"
+                  text={walletInfo.mnemonic}
+                  size="sm"
+                  color="neutral"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end">
+              <Button className="mt-4" onClick={connectWallet}>
+                Next
+              </Button>
+            </div>
           </div>
         ) : (
           <Button onClick={createRailgunWallet}>Create Railgun Wallet</Button>
