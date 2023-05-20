@@ -9,6 +9,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
 import { CHAIN } from "@constants/chains";
+import { RailgunProvider } from "@contexts/railgun-provider";
 import { DefaultLayout } from "@layouts/default-layout";
 import { env } from "env.mjs";
 
@@ -46,8 +47,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WagmiConfig client={client}>
       <RainbowKitProvider chains={chains}>
         <ThemeProvider>
-          <DefaultSeo {...SEO} />
-          {getLayout(<Component {...pageProps} />)}
+          <RailgunProvider>
+            <DefaultSeo {...SEO} />
+            {getLayout(<Component {...pageProps} />)}
+          </RailgunProvider>
         </ThemeProvider>
       </RainbowKitProvider>
     </WagmiConfig>
