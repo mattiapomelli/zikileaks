@@ -5,7 +5,7 @@ import {
 } from "@railgun-community/quickstart";
 import {
   NETWORK_CONFIG,
-  NetworkName,
+  // NetworkName,
   RailgunERC20Amount,
   RailgunERC20AmountRecipient,
   deserializeTransaction,
@@ -81,7 +81,8 @@ export const useShield = () => {
 
     console.log("Here: ");
 
-    const { chain } = NETWORK_CONFIG[NetworkName.Polygon];
+    // const { chain } = NETWORK_CONFIG[NetworkName.Polygon];
+    const { chain } = NETWORK_CONFIG[network];
 
     const transactionRequest: ethers.providers.TransactionRequest =
       deserializeTransaction(

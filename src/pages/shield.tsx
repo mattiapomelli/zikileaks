@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import { NextPage } from "next";
 
 import { Address } from "@components/address";
@@ -8,7 +9,7 @@ import { useRailgun } from "@contexts/railgun-provider";
 import { useShield } from "@hooks/use-shield";
 
 const DonatePage: NextPage = () => {
-  const { loading, wallet } = useRailgun();
+  const { loading, wallet, balance } = useRailgun();
   const { shield, isLoading } = useShield();
 
   const onDonate = async () => {
@@ -37,10 +38,11 @@ const DonatePage: NextPage = () => {
   if (!wallet) return null;
 
   return (
-    <div className="mt-10 flex justify-center">
+    <div className="mt-10 flex flex-col items-center justify-center gap-4">
       <Address address={wallet.zkAddress as `0x${string}`} />
+      <p>Private Balance: {ethers.utils.formatEther(balance)}</p>
       <Button onClick={onDonate} loading={isLoading}>
-        Donate
+        Shield
       </Button>
     </div>
   );
