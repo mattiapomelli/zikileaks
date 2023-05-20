@@ -73,7 +73,9 @@ export default function Level1RegisterUser() {
           <>
             <h1>Verify Your Employment</h1>
             <p className="subtitle-page">
-              In order to submit leaked documents on Zikileaks, you should verify your employer. This helps curators assess the validity of your document.
+              In order to submit leaked documents on Zikileaks, you should
+              verify your employer. This helps curators assess the validity of
+              your document.
             </p>
 
             <div className="input-group">
@@ -89,8 +91,8 @@ export default function Level1RegisterUser() {
 
             <SismoConnectButton
               config={sismoConnectConfig}
-              auths={[{ authType: AuthType.VAULT }]}
-              claims={[{ groupId: "0x1ca383268ca46c64587dd4ef9bd1261d"}]}
+              auths={[{ authType: AuthType.GITHUB }]}
+              claims={[{ groupId: "0x1ca383268ca46c64587dd4ef9bd1261d" }]}
               onResponse={(response: SismoConnectResponse) => verify(response)}
               loading={loading}
               text="Register with Sismo"

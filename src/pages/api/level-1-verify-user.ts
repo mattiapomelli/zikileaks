@@ -49,20 +49,26 @@ const sismoConnect = SismoConnect(sismoConnectConfig);
 /************************************************ */
 
 // this is the API route that is called by the SismoConnectButton
-export default async function handler(req: NextApiRequest, res: NextApiResponse<UserType | void>) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<UserType | void>,
+) {
   const { response } = req.body;
 
   console.log("response", response);
   try {
-    const result: SismoConnectVerifiedResult = await sismoConnect.verify(response, {
-      auths: [{ authType: AuthType.VAULT }],
-      claims: [{ groupId: devGroups[0].groupId }],
-    });
+    const result: SismoConnectVerifiedResult = await sismoConnect.verify(
+      response,
+      {
+        auths: [{ authType: AuthType.GITHUB }],
+        claims: [{ groupId: devGroups[0].groupId }],
+      },
+    );
 
     const user = {
       // the userId is an app-specific, anonymous identifier of a vault
       // userId = hash(userVaultSecret, appId).
-      id: result.getUserId(AuthType.VAULT),
+      id: result.getUserId(AuthType.GITHUB),
       name: result.getSignedMessage(),
     };
 
