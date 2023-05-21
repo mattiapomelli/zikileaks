@@ -17,8 +17,9 @@ const CreatePage: NextPage = () => {
   const onCreatePage = () => {
     if (!file) return;
     createPublication({
-      title: "Title",
-      description: "Description 3",
+      title: "How the government leaked sensitive data",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque porro iste, nihil quos corporis, fugit repudiandae placeat asperiores fugiat eius, voluptatum dolorum minus consectetur id laboriosam? Illo atque deserunt quis aspernatur libero hic, enim sed sapiente temporibus consequatur molestiae esse doloribus tempora quod, eaque harum? Tenetur, facere quidem placeat pariatur odio ea est eos earum enim sunt blanditiis. Dicta vero molestiae iure consequatur, impedit quod nam sequi unde, alias possimus neque? Perferendis eos culpa autem accusantium totam doloribus, itaque tempore quos inventore odio eaque, assumenda voluptas excepturi odit, esse voluptatum quasi. A, quod. Ullam ipsum, exercitationem voluptas odio in suscipit.",
       file,
     });
   };
