@@ -14,7 +14,7 @@ const Stepper = ({ activeStep }: StepperProps) => {
   return (
     <>
       <h3 className="font-bold text-6xl">{activeStep}</h3>
-      <ul className="steps steps-vertical mb-2">
+      <ul className="steps steps-vertical  mb-2 text-sm md:text-md">
         {steps.map((step, index) => (
           <li
             className={`step ${
