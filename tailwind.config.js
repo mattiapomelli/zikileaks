@@ -29,13 +29,6 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        light: {
-          ...require("daisyui/src/colors/themes")["[data-theme=light]"],
-          "--btn-text-case": "none",
-          "--rounded-btn": "0.75rem",
-        },
-      },
-      {
         zikiLight: {
           primary: "#F9BC60",
           secondary: "#ABD1C6",
@@ -46,13 +39,6 @@ module.exports = {
           success: "#99DD46",
           warning: "#FFC62B",
           error: "#FF5993",
-          "--btn-text-case": "none",
-          "--rounded-btn": "0.75rem",
-        },
-      },
-      {
-        dark: {
-          ...require("daisyui/src/colors/themes")["[data-theme=dark]"],
           "--btn-text-case": "none",
           "--rounded-btn": "0.75rem",
         },
