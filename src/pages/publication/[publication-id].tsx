@@ -2,6 +2,7 @@ import { DocumentIcon } from "@heroicons/react/24/outline";
 import { Post } from "@lens-protocol/react-web";
 import { useRouter } from "next/router";
 
+import { Button } from "@components/basic/button";
 import { Spinner } from "@components/basic/spinner";
 import { DislikeComponent } from "@components/icons/dislike-component";
 import { LikeComponent } from "@components/icons/like-component";
@@ -29,9 +30,10 @@ const CourseInfo = ({ publication }: { publication: Post }) => {
             Leaked Document
           </a>
         )}
-        <div className="flex gap-2">
+        <div className="flex items-center gap-3">
           <LikeComponent />
           <DislikeComponent />
+          <Button>Donate</Button>
         </div>
       </div>
       <p className="mt-4">{publication.metadata.description}</p>
