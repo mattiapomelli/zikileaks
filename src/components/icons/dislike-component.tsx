@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-export function DislikeComponent() {
+interface DislikeProps {
+  onDownVote: () => void;
+}
+
+export function DislikeComponent({ onDownVote }: DislikeProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -14,13 +18,10 @@ export function DislikeComponent() {
 
   const handleClick = () => {
     setIsClicked(!isClicked);
+    onDownVote();
   };
 
-  const color = isClicked
-    ? "fill-primary"
-    : isHovered
-    ? "blue"
-    : "currentColor";
+  const color = isClicked ? "#f9bc60" : isHovered ? "#6AAC99" : "currentColor";
 
   return (
     <svg

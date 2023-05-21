@@ -1,4 +1,3 @@
-import { useTransition, animated } from "@react-spring/web";
 import React from "react";
 
 interface StepperProps {
@@ -6,37 +5,27 @@ interface StepperProps {
 }
 
 const Stepper = ({ activeStep }: StepperProps) => {
-  let stepText = "";
-  if (activeStep === 1) {
-    stepText = "Step 1: Verify Account";
-  } else if (activeStep === 2) {
-    stepText = "Step 2: Upload Information";
-  } else if (activeStep === 3) {
-    stepText = "Step 3: Complete";
-  }
-
-  const transition = useTransition(activeStep, {
-    key: activeStep,
-    from: { opacity: 1, transform: "translateX(-10px)" },
-    enter: { opacity: 1, transform: "translateX(0px)" },
-    leave: { opacity: 1, transform: "translateX(-10px)" },
-  });
+  const steps = [
+    "Verify Account",
+    "Railgun Wallet creation",
+    "Upload Information",
+  ];
 
   return (
     <>
       <h3 className="font-bold text-6xl">{activeStep}</h3>
-      <p className="my-10 md:my-20 max-w-sm  ">{stepText}</p>
-      <ul className="steps steps-vertical">
-        {transition((style, step) => (
-          <animated.li
-            className={`step ${step === activeStep ? "step-primary" : ""}`}
-            style={style}
-            key={step}
+      <ul className="steps steps-vertical mb-2">
+        {steps.map((step, index) => (
+          <li
+            className={`step ${
+              index + 1 === activeStep ? "step-primary" : ""
+            } transition-opacity duration-500 mb-4 ${
+              index + 1 <= activeStep ? "opacity-100" : "opacity-50"
+            }`}
+            key={index + 1}
           >
-            {step === 1 && "Verify Account"}
-            {step === 2 && "Railgun Wallet creation"}
-            {step === 3 && "Upload Information"}
-          </animated.li>
+            {step}
+          </li>
         ))}
       </ul>
     </>

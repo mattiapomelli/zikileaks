@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-export function LikeComponent() {
+interface LikeProps {
+  onUpVote: () => void;
+}
+
+export function LikeComponent({ onUpVote }: LikeProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -13,6 +17,7 @@ export function LikeComponent() {
   };
 
   const handleClick = () => {
+    onUpVote();
     setIsClicked(!isClicked);
   };
 

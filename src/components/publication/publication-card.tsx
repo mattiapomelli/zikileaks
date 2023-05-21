@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Post } from "@lens-protocol/react-web";
 import Link from "next/link";
 
@@ -10,6 +11,17 @@ interface PublicationCardProps {
 }
 
 export const PublicationCard = ({ post }: PublicationCardProps) => {
+  const [vote, SetVote] = useState(Math.floor(Math.random() * 100));
+
+  const handleUpVote = () => {
+    // Handle the button click event here
+    SetVote(vote + 1);
+  };
+  const handleDownVote = () => {
+    // Handle the button click event here
+    SetVote(vote - 1);
+  };
+
   return (
     <div className="rounded-box flex flex-col gap-2 bg-base-200 p-4">
       {/* <div className="rounded-box relative h-44 overflow-hidden">
@@ -35,8 +47,9 @@ export const PublicationCard = ({ post }: PublicationCardProps) => {
           <Button size="sm">Read more</Button>
         </Link>
         <div className="flex gap-2 text-accent">
-          <LikeComponent />
-          <DislikeComponent />
+          <p className="font-bold"> {vote}</p>
+          <LikeComponent onUpVote={handleUpVote} />
+          <DislikeComponent onDownVote={handleDownVote} />
         </div>
       </div>
     </div>
