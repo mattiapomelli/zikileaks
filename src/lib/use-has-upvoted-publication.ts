@@ -7,7 +7,7 @@ export const useHasUpvotedPublication = (publicationId: string) => {
   const { address } = useAccount();
 
   const mutation = useQuery(
-    ["has-upvoted-publication", publicationId],
+    ["has-upvoted-publication", publicationId, address],
     async () => {
       if (!zikiLeaks || !address) return false;
 
