@@ -16,7 +16,7 @@ export function LikeComponent() {
     setIsClicked(!isClicked);
   };
 
-  const color = isClicked ? "red" : isHovered ? "blue" : "currentColor";
+  const color = isClicked ? "#f9bc60" : isHovered ? "#6AAC99" : "currentColor";
 
   return (
     <svg

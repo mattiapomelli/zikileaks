@@ -22,7 +22,9 @@ export const PublicationCard = ({ post }: PublicationCardProps) => {
         />
       </div> */}
 
-      <h4 className="mt-1 block text-xl font-semibold">{post.metadata.name}</h4>
+      <h4 className="mt-1 block text-xl text-accent font-semibold">
+        {post.metadata.name}
+      </h4>
 
       <p className="text-base-content/70">
         {post.metadata.content?.substring(0, 100).concat("...")}
@@ -32,7 +34,7 @@ export const PublicationCard = ({ post }: PublicationCardProps) => {
         <Link href={`/publication/${post.id}`}>
           <Button size="sm">Read more</Button>
         </Link>
-        <div className="flex gap-2">
+        <div className="flex gap-2 text-accent">
           <LikeComponent />
           <DislikeComponent />
         </div>

@@ -87,7 +87,7 @@ export const CreateCommentForm = ({
 
   return (
     <div className="mt-2">
-      <Label className="mb-1 text-base">Add new comment</Label>
+      <Label className="mb-1 text-neutral">Add new comment</Label>
       {profile ? (
         <CreateCommentFormInner
           pubId={pubId}

@@ -36,7 +36,7 @@ const FeedPageInner = () => {
 const FeedPage: NextPage = () => {
   return (
     <div>
-      <h4 className="mb-6 text-xl font-bold">Last Publications</h4>
+      <h4 className="mb-6 text-xl text-accent font-bold">Last Publications</h4>
       <FeedPageInner />
     </div>
   );
