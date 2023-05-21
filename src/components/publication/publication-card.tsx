@@ -1,9 +1,9 @@
 import { Post } from "@lens-protocol/react-web";
 import Link from "next/link";
 
-import { Button } from "./basic/button";
-import { DislikeComponent } from "./icons/dislike-component";
-import { LikeComponent } from "./icons/like-component";
+import { Button } from "../basic/button";
+import { DislikeComponent } from "../icons/dislike-component";
+import { LikeComponent } from "../icons/like-component";
 
 interface PublicationCardProps {
   post: Post;

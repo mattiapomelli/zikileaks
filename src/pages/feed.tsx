@@ -2,7 +2,7 @@ import { Post } from "@lens-protocol/react-web";
 import React from "react";
 
 import { Spinner } from "@components/basic/spinner";
-import { PublicationCard } from "@components/publication-card";
+import { PublicationCard } from "@components/publication/publication-card";
 import { useGetPublications } from "@lib/use-get-publications";
 
 import type { NextPage } from "next";

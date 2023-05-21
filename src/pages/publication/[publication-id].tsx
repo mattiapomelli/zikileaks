@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { Spinner } from "@components/basic/spinner";
 import { DislikeComponent } from "@components/icons/dislike-component";
 import { LikeComponent } from "@components/icons/like-component";
+import { PublicationForum } from "@components/publication/publication-forum";
 import { useGetPublication } from "@lib/use-get-publication";
 import { getIpfsUrl } from "@utils/ipfs";
 
@@ -14,7 +15,7 @@ const CourseInfo = ({ publication }: { publication: Post }) => {
   )?.value;
 
   return (
-    <div className="mx-auto flex max-w-xl flex-col gap-2">
+    <div className="mx-auto flex max-w-2xl flex-col gap-2">
       <h1 className="my-4 text-3xl font-bold">{publication.metadata.name}</h1>
       <div className="flex items-center justify-between">
         {fileUri && (
@@ -34,6 +35,7 @@ const CourseInfo = ({ publication }: { publication: Post }) => {
         </div>
       </div>
       <p className="mt-4">{publication.metadata.description}</p>
+      <PublicationForum publicationId={publication.id} className="mt-6" />
     </div>
   );
 };
