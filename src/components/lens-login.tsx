@@ -6,7 +6,6 @@ import {
   useApolloClient,
 } from "@lens-protocol/react-web";
 import Image from "next/legacy/image";
-import Link from "next/link";
 import React from "react";
 import {
   useAccount,
@@ -95,14 +94,6 @@ export const LensLogin = () => {
             </Menu.Button>
             <Menu.Items className="absolute z-50 mt-1 w-full space-y-1 rounded-md border bg-white p-2 text-sm text-gray-900">
               <Menu.Item>
-                <Link
-                  href={`/user/${activeProfile.handle.replace(".test", "")}`}
-                  className=" block w-full rounded-md px-3 py-1.5 font-medium hover:cursor-pointer hover:bg-lime-300 hover:text-lime-900"
-                >
-                  Profile
-                </Link>
-              </Menu.Item>
-              <Menu.Item>
                 <div
                   className=" w-full rounded-md px-3 py-1.5 font-medium hover:cursor-pointer hover:bg-lime-300 hover:text-lime-900"
                   onClick={signOut}
@@ -143,7 +134,7 @@ export const LensLogin = () => {
                 fill="#F7FEE7"
               ></path>
             </svg>
-            <p>Sign in With Lens</p>
+            <p>Sign in With Lens to Comment</p>
           </button>
         )}
       </div>

@@ -44,7 +44,7 @@ const CourseInfo = ({ publication }: { publication: Post }) => {
         </div>
       </div>
       <p className="mt-4">{publication.metadata.content}</p>
-      <PublicationForum publicationId={publication.id} className="mt-6" />
+      <PublicationForum publicationId={publication.id} className="mt-10" />
     </div>
   );
 };
