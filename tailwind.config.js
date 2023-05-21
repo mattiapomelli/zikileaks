@@ -35,10 +35,10 @@ module.exports = {
       },
       {
         zikiLight: {
-          primary: "#F9BC60",
-          secondary: "#ABD1C6",
-          accent: "#FFFFFE",
-          neutral: "#001E1D",
+          primary: "#f9bc60",
+          secondary: "#004643",
+          accent: "#abd1c6",
+          neutral: "#001e1d",
           "base-100": "#004643",
           info: "#3ABFF8",
           success: "#99DD46",

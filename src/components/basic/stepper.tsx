@@ -17,21 +17,19 @@ const Stepper = ({ activeStep }: StepperProps) => {
 
   const transition = useTransition(activeStep, {
     key: activeStep,
-    from: { opacity: 0, transform: "translateX(-10px)" },
+    from: { opacity: 1, transform: "translateX(-10px)" },
     enter: { opacity: 1, transform: "translateX(0px)" },
-    leave: { opacity: 0, transform: "translateX(-10px)" },
+    leave: { opacity: 1, transform: "translateX(-10px)" },
   });
 
   return (
     <>
-      <h3 className="font-bold text-6xl  text-neutral">{activeStep}</h3>
-      <p className="my-10 md:my-20 max-w-sm  text-neutral">{stepText}</p>
+      <h3 className="font-bold text-6xl">{activeStep}</h3>
+      <p className="my-10 md:my-20 max-w-sm  ">{stepText}</p>
       <ul className="steps steps-vertical">
         {transition((style, step) => (
           <animated.li
-            className={`step ${
-              step === activeStep ? "step-primary text-neutral" : ""
-            }`}
+            className={`step ${step === activeStep ? "step-primary" : ""}`}
             style={style}
             key={step}
           >

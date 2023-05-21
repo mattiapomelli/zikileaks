@@ -10,7 +10,7 @@ export const Hero = ({ title }: HeroProps) => {
   return (
     <div
       className={cx(
-        "min-h-16  grid grid-cols-12 rounded-md bg-secondary mt-20 py-12 px-24 text-accent",
+        "min-h-16  grid grid-cols-12 rounded-md bg-accent mt-20 py-12 px-24 text-secondary",
       )}
     >
       <h3 className=" col-start-2 col-span-8  text-3xl pb-6 text-wrap">
