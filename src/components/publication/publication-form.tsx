@@ -1,24 +1,25 @@
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@components/basic/button";
 import { FileDropzone } from "@components/basic/file-dropzone";
 import { Input } from "@components/basic/input";
+import { TextArea } from "@components/basic/textarea";
+import { useCreatePublicationWithApi } from "@lib/use-create-publication-with-api";
 
-interface uploadFormFields {
+interface PublicationFormFields {
   title: string;
-  price: string;
-  referral: string;
   description: string;
-  keywords: string;
 }
 
 export const PublicationForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<uploadFormFields>();
+  } = useForm<PublicationFormFields>();
 
   const [file, setFile] = useState<File | undefined>(undefined);
 
@@ -26,60 +27,55 @@ export const PublicationForm = () => {
     setFile(selectedFile);
   };
 
-  const onSubmit = handleSubmit(async () => {
-    // if (!asset) {
-    //   await uploadVideo();
-    // } else {
-    //   if (!asset.playbackId || !image) return;
-    //   const { title, description, price, referral, keywords } = data;
-    //   createCourse({
-    //     title,
-    //     description,
-    //     price: ethers.utils.parseEther(price),
-    //     referral: Number(referral),
-    //     image,
-    //     // image: new File([], ""),
-    //     videoPlaybackId: asset.playbackId,
-    //     // videoPlaybackId: "1806vd0wgt1rmgmo",
-    //     keywords: keywords.split(",").map((value) => value.trim()),
-    //   });
-    // }
+  const { mutate: createPublication, isLoading } = useCreatePublicationWithApi({
+    onSuccess() {
+      router.push("/feed");
+    },
+  });
+
+  const onSubmit = handleSubmit(async (data) => {
+    const { title, description } = data;
+    if (!file) return;
+
+    createPublication({
+      title,
+      description,
+      file,
+    });
   });
 
   return (
     <>
       <form
-        className="flex flex-col gap-6 col-start-2 col-span-6"
+        className="col-span-6 col-start-2 flex flex-col gap-6"
         onSubmit={onSubmit}
       >
         <Input
-          label="Wallet address to be confirmed - can not be changed"
+          label="Title"
           block
-          {...register("keywords", { required: "Category is required" })}
-          error={errors.keywords?.message}
-          disabled={true}
+          {...register("title", { required: "Title is required" })}
+          error={errors.title?.message}
         />
-        <Input
-          label="Name of organisation"
+        <TextArea
+          label="Description"
           block
-          {...register("keywords", { required: "Category is required" })}
-          error={errors.keywords?.message}
-          disabled={true}
+          {...register("description", { required: "Description is required" })}
+          error={errors.description?.message}
         />
         <FileDropzone
           value={file}
           onValueChange={handleFileChange}
           accept=".pdf, image/*"
-          label="Upload File (PDF or Image)"
+          label="Leaked document"
         />
         <Button
           className="mt-2"
           block
           type="submit"
-          // loading={isLoading || uploadIsLoading}
-          // disabled={isLoading || uploadIsLoading}
+          loading={isLoading}
+          disabled={isLoading}
         >
-          Upload File
+          Create publication
         </Button>
       </form>
     </>

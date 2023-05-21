@@ -19,8 +19,9 @@ export default async function handler(
     const description = req.query.description?.toString();
     const zkAddress = req.query.zkAddress?.toString();
     const pubKey = req.query.pubKey?.toString();
+    const fileUri = req.query.fileUri?.toString();
 
-    if (!title || !description || !zkAddress || !pubKey) {
+    if (!title || !description || !zkAddress || !pubKey || !fileUri) {
       return res.status(400).send({ message: "Missing query params" });
     }
 
@@ -33,7 +34,7 @@ export default async function handler(
       version: "2.0.0",
       mainContentFocus: PublicationMainFocus.TextOnly,
       locale: "en-US",
-      tags: ["zikileaks"],
+      // tags: ["zikileaks"],
       // attributes: [],
       attributes: [
         {
@@ -44,6 +45,12 @@ export default async function handler(
         {
           traitType: "pubKey",
           value: pubKey,
+          displayType: PublicationMetadataDisplayTypes.String,
+        },
+        {
+          // @ts-ignore
+          traitType: "fileUri",
+          value: fileUri,
           displayType: PublicationMetadataDisplayTypes.String,
         },
       ],

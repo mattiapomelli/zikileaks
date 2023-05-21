@@ -14,7 +14,6 @@ import { getRailgunWalletPrivateViewingKey } from "@railgun-community/quickstart
 import { BigNumber, ethers } from "ethers";
 import { useMutation } from "wagmi";
 
-import { LENS_TAG } from "@constants/lens";
 import { useRailgun } from "@contexts/railgun-provider";
 import { uploadToBundlr } from "@utils/bundlr";
 import { uploadFileToIPFS } from "@utils/ipfs";
@@ -55,7 +54,7 @@ export const useCreatePublication = (options?: UseCreateCourseOptions) => {
       if (!fileUri) return;
 
       const res = await create({
-        content: `description #${LENS_TAG}`,
+        content: description,
         contentFocus: ContentFocus.TEXT,
         locale: "en",
         collect: {

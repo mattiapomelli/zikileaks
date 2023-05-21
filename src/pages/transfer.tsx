@@ -18,10 +18,10 @@ const TransferPage: NextPage = () => {
     try {
       transfer({
         tokenAddress: wethAddress,
-        tokenAmount: "0.01",
+        tokenAmount: "0.2",
         tokenDecimals: 18,
         recipient:
-          "0zk1qy8n2jl97x4wmjzfn9cewx2ckq62tzdekupxa0vyttn0m5tt64hnhrv7j6fe3z53l7s3n8dq8scck5ma0cwjevhf8p877l6ryh84c88s5ld8avm75mkpvwtz0q5",
+          "0zk1qyphsc3xkujzf2audl40mm7lk4zjchd7k3wkq9fqur3477tjwn4y4rv7j6fe3z53lupygn5hh5e492tyff9h9ecackfq7m44mtn2utqqzs3yx5u2sfj8vypywq9",
       });
     } catch (e) {
       console.error(e);

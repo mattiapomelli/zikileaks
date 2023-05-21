@@ -10,7 +10,7 @@ import {
   startRailgunEngine,
 } from "@railgun-community/quickstart";
 import { setOnBalanceUpdateCallback } from "@railgun-community/quickstart";
-import { NETWORK_CONFIG, NetworkName } from "@railgun-community/shared-models";
+import { NETWORK_CONFIG } from "@railgun-community/shared-models";
 import { BigNumber, ethers } from "ethers";
 import { entropyToMnemonic, randomBytes } from "ethers/lib/utils";
 import LevelDB from "level-js";
@@ -23,15 +23,16 @@ import {
   useState,
 } from "react";
 import { useProvider } from "wagmi";
-import { polygon } from "wagmi/chains";
 
-import { wethAddress } from "@constants/common";
-import { getNetwork, networks } from "@constants/networks";
+import { WMATIC_ADDRESS } from "@constants/addresses";
+import { CHAIN } from "@constants/chains";
+import { getNetwork } from "@constants/networks";
 
 interface RailgunWallet {
   zkAddress: string;
   id: string;
   encryptionKey: string;
+  address: `0x${string}`;
 }
 
 export interface CreateWalletResponse {
@@ -54,23 +55,32 @@ const RailgunContext = createContext<RailgunContextValue | undefined>(
   undefined,
 );
 
-export const loadProviders = async () => {
+export const loadProviders = async (chainId: number) => {
   // Whether to forward debug logs from Fallback Provider.
   const shouldDebug = true;
-  return Promise.all(
-    Object.keys(networks).map(async (chainIdString) => {
-      const chainId = Number(chainIdString);
-      const { railgunNetworkName, fallbackProviders } = getNetwork(chainId);
-      return {
-        chainId,
-        providerInfo: await loadProvider(
-          fallbackProviders,
-          railgunNetworkName,
-          shouldDebug,
-        ),
-      };
-    }),
-  );
+  // return Promise.all(
+  // Object.keys(networks).map(async (chainIdString) => {
+  //   const chainId = Number(chainIdString);
+  //   const { railgunNetworkName, fallbackProviders } = getNetwork(chainId);
+  //   return {
+  //     chainId,
+  //     providerInfo: await loadProvider(
+  //       fallbackProviders,
+  //       railgunNetworkName,
+  //       shouldDebug,
+  //     ),
+  //   };
+  // }),
+  // );
+  const { railgunNetworkName, fallbackProviders } = getNetwork(chainId);
+  return {
+    chainId,
+    providerInfo: await loadProvider(
+      fallbackProviders,
+      railgunNetworkName,
+      shouldDebug,
+    ),
+  };
 };
 
 const artifactStore = new ArtifactStore(
@@ -89,6 +99,8 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const [wallet, setWallet] = useState<RailgunWallet | null>(null);
   const [balance, setBalance] = useState<BigNumber>(BigNumber.from(0));
+
+  const { railgunNetworkName: railgunNetwork } = getNetwork(CHAIN.id);
 
   useEffect(() => {
     const initialize = async () => {
@@ -135,7 +147,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
       getProver().setSnarkJSGroth16(groth16);
 
       // --- Load providers ---
-      const res = await loadProviders();
+      const res = await loadProviders(CHAIN.id);
       console.log("Providers res: ", res);
 
       // --- Get Connected Railgun Wallet ---
@@ -147,7 +159,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
         return;
       }
 
-      const { encryptionKey, id } = JSON.parse(connectedRailgunWallet);
+      const { encryptionKey, id, address } = JSON.parse(connectedRailgunWallet);
       const railgunWallet = await loadWalletByID(encryptionKey, id, false);
 
       if (!railgunWallet.railgunWalletInfo?.railgunAddress) {
@@ -159,6 +171,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
         id,
         zkAddress: railgunWallet.railgunWalletInfo?.railgunAddress,
         encryptionKey,
+        address,
       });
       setLoading(false);
 
@@ -168,7 +181,9 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
         console.log(">>> Balance Event: ", event);
 
         const tokenBalance = event.erc20Amounts.find(
-          (token) => token.tokenAddress === wethAddress,
+          (token) =>
+            token.tokenAddress.toLowerCase() ===
+            WMATIC_ADDRESS[CHAIN.id].toLowerCase(),
         );
         if (!tokenBalance) return;
         const balanceNum = Number(tokenBalance?.amountString);
@@ -193,13 +208,13 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
     if (!wallet?.id) return;
 
     const refreshWalletBalance = async () => {
-      const { chain } = NETWORK_CONFIG[NetworkName.Polygon];
+      const { chain } = NETWORK_CONFIG[railgunNetwork];
       const res = await refreshRailgunBalances(chain, wallet?.id, false);
       console.log("Refresh balances res: ", res);
     };
 
     refreshWalletBalance();
-  }, [wallet?.id]);
+  }, [wallet?.id, railgunNetwork]);
 
   const createWallet = async (): Promise<CreateWalletResponse | null> => {
     const mnemonic = entropyToMnemonic(randomBytes(16));
@@ -216,7 +231,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
     // Current block numbers for each chain when wallet was first created.
     // If unknown, provide undefined.
     const creationBlockNumberMap = {
-      [polygon.name]: block.number,
+      [CHAIN.name]: block.number,
     };
 
     const railgunWallet = await createRailgunWallet(

@@ -5,7 +5,6 @@ import {
 } from "@railgun-community/quickstart";
 import {
   NETWORK_CONFIG,
-  NetworkName,
   RailgunERC20Amount,
   RailgunERC20AmountRecipient,
   deserializeTransaction,
@@ -25,7 +24,9 @@ export const useRailgunTx = () => {
   const { shieldPrivateKey, getShieldPrivateKey } = useShieldPrivateKey();
   const [isLoading, setIdLoading] = useState(false);
 
-  const { railgunNetworkName: network, wethAddress } = getNetwork(CHAIN.id);
+  const { railgunNetworkName: railgunNetwork, wethAddress } = getNetwork(
+    CHAIN.id,
+  );
 
   const shield = async (args: {
     tokenAddress: string;
@@ -67,10 +68,10 @@ export const useRailgunTx = () => {
     };
 
     console.log("Shield Private Key: ", shieldPrivateKey);
-    console.log("Network: ", network);
+    console.log("Network: ", railgunNetwork);
 
     const { serializedTransaction, error } = await populateShieldBaseToken(
-      network,
+      railgunNetwork,
       recipient,
       shieldPrivateKey,
       wrappedERC20Amount,
@@ -81,7 +82,7 @@ export const useRailgunTx = () => {
 
     console.log("Here: ");
 
-    const { chain } = NETWORK_CONFIG[NetworkName.Polygon];
+    const { chain } = NETWORK_CONFIG[railgunNetwork];
 
     const transactionRequest: ethers.providers.TransactionRequest =
       deserializeTransaction(
@@ -123,7 +124,7 @@ export const useRailgunTx = () => {
     ];
 
     const { serializedTransaction, error } = await populateShield(
-      network,
+      railgunNetwork,
       shieldPrivateKey,
       erc20AmountRecipients,
       [], // nftAmountRecipients
@@ -132,7 +133,7 @@ export const useRailgunTx = () => {
       throw error;
     }
 
-    const { chain } = NETWORK_CONFIG[network];
+    const { chain } = NETWORK_CONFIG[railgunNetwork];
 
     const transactionRequest: ethers.providers.TransactionRequest =
       deserializeTransaction(

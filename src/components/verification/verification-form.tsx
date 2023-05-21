@@ -7,6 +7,7 @@ import {
 import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useAccount } from "wagmi";
 
 import { Input } from "@components/basic/input";
 
@@ -27,24 +28,25 @@ interface VerificationFormProps {
 }
 
 interface verificationFormFields {
-  title: string;
-  price: string;
-  referral: string;
-  description: string;
-  keywords: string;
+  address: string;
+  organization: string;
 }
 
 export const VerificationForm = ({ onVerifyClick }: VerificationFormProps) => {
+  const { address } = useAccount();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [userInput, setUserInput] = useState("");
-  const [verifiedUser, setVerifiedUser] = useState<UserType | null>(null);
+  // const [userInput, setUserInput] = useState("");
+  // const [verifiedUser, setVerifiedUser] = useState<UserType | null>(null);
 
   const {
     register,
-
     formState: { errors },
-  } = useForm<verificationFormFields>();
+  } = useForm<verificationFormFields>({
+    defaultValues: {
+      address,
+    },
+  });
 
   // const onSubmit = handleSubmit(async () => {
   //   await onVerifyClick();
@@ -60,13 +62,12 @@ export const VerificationForm = ({ onVerifyClick }: VerificationFormProps) => {
       });
       console.log(res);
 
-      const user = res.data;
-
-      // If the proof is valid, we update the user react state to show the user profile
-      setVerifiedUser({
-        id: user.id,
-        name: user.name,
-      });
+      // const user = res.data;
+      // // If the proof is valid, we update the user react state to show the user profile
+      // setVerifiedUser({
+      //   id: user.id,
+      //   name: user.name,
+      // });
     } catch (e) {
       // Else if the proof is invalid, we show an error message
       setError("Invalid response");
@@ -79,9 +80,9 @@ export const VerificationForm = ({ onVerifyClick }: VerificationFormProps) => {
   }
 
   // On text input change, we update the userInput react state variable
-  function onUserInput(e: any) {
-    setUserInput(e.target.value);
-  }
+  // function onUserInput(e: any) {
+  //   setUserInput(e.target.value);
+  // }
 
   return (
     <>
@@ -89,18 +90,18 @@ export const VerificationForm = ({ onVerifyClick }: VerificationFormProps) => {
         <Input
           label="Wallet address to be confirmed - can not be changed"
           block
-          {...register("keywords", { required: "Category is required" })}
-          error={errors.keywords?.message}
+          {...register("address", { required: "Address is required" })}
+          error={errors.address?.message}
           disabled={true}
         />
 
         <Input
           label="Name of organisation"
           block
-          {...register("keywords", { required: "Category is required" })}
-          error={errors.keywords?.message}
-          value={userInput}
-          onChange={onUserInput}
+          {...register("organization", { required: "Category is required" })}
+          error={errors.organization?.message}
+          // value={userInput}
+          // onChange={onUserInput}
           disabled={loading}
         />
 
@@ -110,7 +111,7 @@ export const VerificationForm = ({ onVerifyClick }: VerificationFormProps) => {
           claims={[{ groupId: "0x1ca383268ca46c64587dd4ef9bd1261d" }]}
           onResponse={(response: SismoConnectResponse) => verify(response)}
           loading={loading}
-          text="Register with Sismo"
+          text="Verify Employment"
         />
         <>{error}</>
       </div>
