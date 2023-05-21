@@ -11,7 +11,7 @@ interface PublicationCardProps {
 
 export const PublicationCard = ({ post }: PublicationCardProps) => {
   return (
-    <div className="rounded-box flex flex-col gap-2 bg-base-200 p-4">
+    <div className="rounded-box flex flex-col justify-between gap-2 bg-base-200 p-4">
       {/* <div className="rounded-box relative h-44 overflow-hidden">
         <Image
           src={post.metadata.imageUrl}
@@ -28,9 +28,9 @@ export const PublicationCard = ({ post }: PublicationCardProps) => {
         {post.metadata.content?.substring(0, 100).concat("...")}
       </p>
 
-      <div className="flex w-full items-center justify-between">
+      <div className="mt-4 flex w-full items-center justify-between">
         <Link href={`/publication/${post.id}`}>
-          <Button size="sm">Read more</Button>
+          <Button size="sm">Read</Button>
         </Link>
         <div className="flex gap-2">
           <LikeComponent />
