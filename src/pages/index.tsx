@@ -3,27 +3,27 @@ import Link from "next/link";
 function Home() {
   return (
     <>
-      <section className="text-gray-700 body-font">
-        <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
-          <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-            <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-primary">
+      <section className="body-font text-gray-700">
+        <div className="container mx-auto flex flex-col items-center px-5 py-24 md:flex-row">
+          <div className="mb-16 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pr-16 md:text-left lg:grow lg:pr-24">
+            <h1 className="title-font mb-4 text-3xl font-medium text-primary sm:text-4xl">
               Zikileaks helps advocates get sensitive documents published
               without fear.
             </h1>
-            <p className="mb-8 text-white text-2xl leading-relaxed">
+            <p className="mb-8 text-2xl leading-relaxed text-white">
               Privacy-preserving posting, non-invasive content verification, &
               anonymous donations empower whistleblowers to fight for human
               rights globally.
             </p>
             <div className="flex justify-center">
               <Link
-                className="ml-4 inline-flex border-0 bg-tertiary btn-secondary py-2 px-6 focus:outline-none rounded text-lg"
+                className="bg-tertiary btn-secondary ml-4 inline-flex rounded border-0 px-6 py-2 text-lg focus:outline-none"
                 href="/feed"
               >
                 Read Recent Posts
               </Link>
               <Link
-                className="ml-4 inline-flex border-0 btn-primary py-2 px-6 focus:outline-none rounded text-lg"
+                className="btn-primary ml-4 inline-flex rounded border-0 px-6 py-2 text-lg focus:outline-none"
                 href="/verification"
               >
                 Post Leaked Documents
@@ -32,47 +32,47 @@ function Home() {
           </div>
           <div className="">
             <img
-              className="object-cover object-center rounded"
+              className="rounded object-cover object-center"
               alt="hero"
               src="/zikihome.png"
             ></img>
           </div>
         </div>
       </section>
-      <section className="text-gray-700 body-font border-t border-gray-200">
-        <div className="container px-5 py-24 mx-auto">
-          <div className="flex flex-col text-center w-full mb-10">
-            <h1 className="sm:text-3xl text-3xl mb-5 font-medium title-font text-white">
+      <section className="body-font border-t border-gray-200 text-gray-700">
+        <div className="container mx-auto px-5 py-24">
+          <div className="mb-10 flex w-full flex-col text-center">
+            <h1 className="title-font mb-5 text-3xl font-medium text-white sm:text-3xl">
               Whistleblowers, Civilians, and Donors
             </h1>
-            <h2 className="text-s text-primary tracking-widest font-medium title-font mb-0">
+            <h2 className="text-s title-font mb-0 font-medium tracking-widest text-primary">
               Uniting to create a more open ecosystem for public information
             </h2>
           </div>
-          <div className="flex flex-wrap -m-4">
+          <div className="-m-4 flex flex-wrap">
             <div className="p-4 md:w-1/3">
-              <div className="flex  shadow-2xl rounded-lg h-full bg-gray-100 p-8 flex-col">
-                <div className="flex items-center mb-3">
-                  <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-primary text-gray-100 flex-shrink-0">
+              <div className="flex  h-full flex-col rounded-lg bg-gray-100 p-8 shadow-2xl">
+                <div className="mb-3 flex items-center">
+                  <div className="mr-3 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-gray-100">
                     <svg
                       fill="none"
                       stroke="currentColor"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       stroke-width="2"
-                      className="w-5 h-5"
+                      className="h-5 w-5"
                       viewBox="0 0 24 24"
                     >
                       <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
                       <circle cx="12" cy="7" r="4"></circle>
                     </svg>
                   </div>
-                  <h2 className="text-gray-900 text-lg title-font font-medium">
+                  <h2 className="title-font text-lg font-medium text-gray-900">
                     For Subject Matter Experts
                   </h2>
                 </div>
-                <div className="flex-grow">
-                  <p className="leading-relaxed text-base">
+                <div className="grow">
+                  <p className="text-base leading-relaxed">
                     Zikileaks leverage knowledge of the crowd and zero-knowledge
                     employment verification to validate documents as authentic.
                     Experts and citizens alike can contribute to curation and
@@ -83,16 +83,16 @@ function Home() {
               </div>
             </div>
             <div className="p-4 md:w-1/3">
-              <div className="flex shadow-2xl rounded-lg h-full bg-gray-100 p-8 flex-col">
-                <div className="flex items-center mb-3">
-                  <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-primary text-gray-100 flex-shrink-0">
+              <div className="flex h-full flex-col rounded-lg bg-gray-100 p-8 shadow-2xl">
+                <div className="mb-3 flex items-center">
+                  <div className="mr-3 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-gray-100">
                     <svg
                       fill="none"
                       stroke="currentColor"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       stroke-width="2"
-                      className="w-5 h-5"
+                      className="h-5 w-5"
                       viewBox="0 0 24 24"
                     >
                       <circle cx="6" cy="6" r="3"></circle>
@@ -100,12 +100,12 @@ function Home() {
                       <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
                     </svg>
                   </div>
-                  <h2 className="text-gray-900 text-lg title-font font-medium">
+                  <h2 className="title-font text-lg font-medium text-gray-900">
                     For Whistleblowers
                   </h2>
                 </div>
-                <div className="flex-grow">
-                  <p className="leading-relaxed text-base">
+                <div className="grow">
+                  <p className="text-base leading-relaxed">
                     Zikileaks empowers advocates to release leaked documents on
                     civil liberties and human rights violations without fear of
                     being personally targeted. This is possible thanks to...
@@ -122,16 +122,16 @@ function Home() {
               </div>
             </div>
             <div className="p-4 md:w-1/3">
-              <div className="flex shadow-2xl rounded-lg h-full bg-gray-100 p-8 flex-col">
-                <div className="flex items-center mb-3">
-                  <div className="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-primary text-gray-100 flex-shrink-0">
+              <div className="flex h-full flex-col rounded-lg bg-gray-100 p-8 shadow-2xl">
+                <div className="mb-3 flex items-center">
+                  <div className="mr-3 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-gray-100">
                     <svg
                       fill="none"
                       stroke="currentColor"
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       stroke-width="2"
-                      className="w-5 h-5"
+                      className="h-5 w-5"
                       viewBox="0 0 24 24"
                     >
                       <circle cx="6" cy="6" r="3"></circle>
@@ -139,12 +139,12 @@ function Home() {
                       <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
                     </svg>
                   </div>
-                  <h2 className="text-gray-900 text-lg title-font font-medium">
+                  <h2 className="title-font text-lg font-medium text-gray-900">
                     For Supporters
                   </h2>
                 </div>
-                <div className="flex-grow">
-                  <p className="leading-relaxed text-base">
+                <div className="grow">
+                  <p className="text-base leading-relaxed">
                     Zikileaks is a non-intermediary media project that enables
                     whistleblowers to submit documents and accept donations in a
                     peer-to-peer and private way. When you read and donate on
@@ -158,22 +158,22 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="text-gray-700 shadow-2xl body-font bg-accent rounded-md border-t">
-        <div className="container px-5 py-24 mx-auto flex flex-wrap">
-          <div className="lg:w-1/2 w-full mb-0 lg:mb-0 ">
+      <section className="body-font rounded-md border-t bg-accent text-gray-700 shadow-2xl">
+        <div className="container mx-auto flex flex-wrap px-5 py-24">
+          <div className="mb-0 w-full lg:mb-0 lg:w-1/2 ">
             <img
-              className="p-10 object-center"
+              className="object-center p-10"
               alt="hero"
               src="/frens.png"
             ></img>
           </div>
-          <div className=" flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center">
-            <div className="flex flex-col mb-10 lg:items-start items-center">
-              <div className="flex-grow">
-                <h2 className="text-gray-900 text-4xl title-font pb-10 font-medium mb-3">
+          <div className=" -mb-10 flex flex-col flex-wrap text-center lg:w-1/2 lg:py-6 lg:pl-12 lg:text-left">
+            <div className="mb-10 flex flex-col items-center lg:items-start">
+              <div className="grow">
+                <h2 className="title-font mb-3 pb-10 text-4xl font-medium text-gray-900">
                   Reach Larger Audiences with Lens 🌿
                 </h2>
-                <p className="leading-relaxed text-xl text-base">
+                <p className="text-base leading-relaxed">
                   Whistleblowers are constantly censored and one of the hardest
                   issues to overcome is getting your documents where people can
                   see them. <br></br>
@@ -187,57 +187,57 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="text-gray-700 body-font border-t border-gray-200">
-        <div className="container px-5 py-24 mx-auto">
-          <div className="flex flex-wrap w-full mb-20 flex-col items-center text-center">
-            <h1 className="sm:text-5xl text-5xl font-medium title-font mb-2 text-gray-100">
+      <section className="body-font border-t border-gray-200 text-gray-700">
+        <div className="container mx-auto px-5 py-24">
+          <div className="mb-20 flex w-full flex-col flex-wrap items-center text-center">
+            <h1 className="title-font mb-2 text-5xl font-medium text-gray-100 sm:text-5xl">
               Proudly Built With
             </h1>
           </div>
-          <div className="flex flex-wrap -m-4">
+          <div className="-m-4 flex flex-wrap">
             <div className="p-4 md:w-1/3">
-              <div className="flex  shadow-2xl rounded-lg h-full bg-gray-100 p-8 flex-col">
+              <div className="flex  h-full flex-col rounded-lg bg-gray-100 p-8 shadow-2xl">
                 <img
                   alt="team"
-                  className=" object-cover object-center flex-shrink-0"
+                  className=" shrink-0 object-cover object-center"
                   src="/sismo.png"
                 ></img>
-                <h2 className="text-gray-900 text-center pt-10 text-3xl title-font fo1t-medium">
+                <h2 className="title-font fo1t-medium pt-10 text-center text-3xl text-gray-900">
                   Sismo
                 </h2>
-                <h2 className="text-gray-900 pt-5 text-lg title-font font-medium">
+                <h2 className="title-font pt-5 text-lg font-medium text-gray-900">
                   Sismo enables whistleblowers to verify their employers
                   privately
                 </h2>
               </div>
             </div>
             <div className="p-4 md:w-1/3">
-              <div className="flex  shadow-2xl rounded-lg h-full bg-gray-100 p-8 flex-col">
+              <div className="flex  h-full flex-col rounded-lg bg-gray-100 p-8 shadow-2xl">
                 <img
                   alt="team"
-                  className=" object-cover object-center flex-shrink-0"
+                  className=" shrink-0 object-cover object-center"
                   src="/railgun.png"
                 ></img>
-                <h2 className="text-gray-900 text-center pt-10 text-3xl title-font fo1t-medium">
+                <h2 className="title-font fo1t-medium pt-10 text-center text-3xl text-gray-900">
                   Railgun
                 </h2>
-                <h2 className="text-gray-900 pt-5 text-lg title-font font-medium">
+                <h2 className="title-font pt-5 text-lg font-medium text-gray-900">
                   Railgun enables private peer-to-peer donations and private
                   content posting
                 </h2>
               </div>
             </div>
             <div className="p-4 md:w-1/3">
-              <div className="flex  shadow-2xl h-full bg-gray-100 p-8 flex-col">
+              <div className="flex  h-full flex-col bg-gray-100 p-8 shadow-2xl">
                 <img
                   alt="team"
-                  className=" object-cover object-center flex-shrink-0"
+                  className=" shrink-0 object-cover object-center"
                   src="/lens.png"
                 ></img>
-                <h2 className="text-gray-900 text-center pt-10 text-3xl title-font fo1t-medium">
+                <h2 className="title-font fo1t-medium pt-10 text-center text-3xl text-gray-900">
                   Lens Protocol
                 </h2>
-                <h2 className="text-gray-900 pt-5 text-lg title-font font-medium">
+                <h2 className="title-font pt-5 text-lg font-medium text-gray-900">
                   Lens enables content posting and distribution across platforms
                 </h2>
               </div>
@@ -245,57 +245,57 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="text-black shadow-2xl rounded-md bg-accent body-font border-t border-gray-200">
-        <div className="container  py-10 mx-auto">
-          <div className="flex flex-col text-center w-full mb-10">
-            <h1 className="sm:text-5xl text-5xl font-medium title-font mb-4 text-black">
+      <section className="body-font rounded-md border-t border-gray-200 bg-accent text-black shadow-2xl">
+        <div className="container  mx-auto py-10">
+          <div className="mb-10 flex w-full flex-col text-center">
+            <h1 className="title-font mb-4 text-5xl font-medium text-black sm:text-5xl">
               Our Team
             </h1>
-            <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-              We're passionate as privacy as a human right and are building
+            <p className="mx-auto text-base leading-relaxed lg:w-2/3">
+              We&apos;re passionate as privacy as a human right and are building
               tools to make this vision a reality.
             </p>
           </div>
-          <div className="flex flex-wrap -m-2">
-            <div className="p-2 lg:w-1/3 md:w-1/2 w-full">
-              <div className="h-full border-white shadow-2xl flex items-center border-8 p-4 rounded-lg">
+          <div className="-m-2 flex flex-wrap">
+            <div className="w-full p-2 md:w-1/2 lg:w-1/3">
+              <div className="flex h-full items-center rounded-lg border-8 border-white p-4 shadow-2xl">
                 <img
                   alt="team"
-                  className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+                  className="mr-4 h-16 w-16 shrink-0 rounded-full bg-gray-100 object-cover object-center"
                   src="https://img.freepik.com/premium-photo/cartoon-ninja-girl-beautiful-japanese-ninja-girl-concept-art-digital-painting-fantasy-illustration_743201-2848.jpg?w=2000"
                 ></img>
-                <div className="flex-grow">
-                  <h2 className="text-gray-900 title-font font-medium">
+                <div className="grow">
+                  <h2 className="title-font font-medium text-gray-900">
                     Secret Soheimam
                   </h2>
                   <p className="text-primary-500">Fancy Frontend Officer</p>
                 </div>
               </div>
             </div>
-            <div className="p-2 lg:w-1/3 md:w-1/2 w-full">
-              <div className="h-full border-white shadow-2xl flex items-center border-8 p-4 rounded-lg">
+            <div className="w-full p-2 md:w-1/2 lg:w-1/3">
+              <div className="flex h-full items-center rounded-lg border-8 border-white p-4 shadow-2xl">
                 <img
                   alt="team"
-                  className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+                  className="mr-4 h-16 w-16 shrink-0 rounded-full bg-gray-100 object-cover object-center"
                   src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/633a2327-57a8-4012-bd41-a98836b26238/dewltnz-f2e682de-c6dd-4673-8242-81ca1fc54ae5.jpg/v1/fill/w_1280,h_1280,q_75,strp/anime_girl___ninja___kunoichi_by_allydity2412_dewltnz-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiJcL2ZcLzYzM2EyMzI3LTU3YTgtNDAxMi1iZDQxLWE5ODgzNmIyNjIzOFwvZGV3bHRuei1mMmU2ODJkZS1jNmRkLTQ2NzMtODI0Mi04MWNhMWZjNTRhZTUuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.SmebuLvHfK7MnFqdlR2P71ukZgKmiMiY2s_FU94RXTk"
                 ></img>
-                <div className="flex-grow">
-                  <h2 className="text-gray-900 title-font font-medium">
+                <div className="grow">
+                  <h2 className="title-font font-medium text-gray-900">
                     Kinda Anonymous Kirsten
                   </h2>
                   <p className="text-primary-500">Sismo Supercoder</p>
                 </div>
               </div>
             </div>
-            <div className="p-2 lg:w-1/3 md:w-1/2 w-full">
-              <div className="h-full border-white shadow-2xl flex items-center border-8 p-4 rounded-lg">
+            <div className="w-full p-2 md:w-1/2 lg:w-1/3">
+              <div className="flex h-full items-center rounded-lg border-8 border-white p-4 shadow-2xl">
                 <img
                   alt="team"
-                  className="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+                  className="mr-4 h-16 w-16 shrink-0 rounded-full bg-gray-100 object-cover object-center"
                   src="https://narutoguides.com/wp-content/uploads/2018/03/Masked-Man.png"
                 ></img>
-                <div className="flex-grow">
-                  <h2 className="text-gray-900 title-font font-medium">
+                <div className="grow">
+                  <h2 className="title-font font-medium text-gray-900">
                     Mystery Mattia
                   </h2>
                   <p className="text-primary-500">
@@ -307,27 +307,28 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="text-gray-700 body-font border-t border-gray-200">
-        <div className="container pt-20 mx-auto flex flex-wrap">
-          <div className="lg:w-1/2 w-full mb-10 lg:mb-0 rounded-lg overflow-hidden">
+      <section className="body-font border-t border-gray-200 text-gray-700">
+        <div className="container mx-auto flex flex-wrap pt-20">
+          <div className="mb-10 w-full overflow-hidden rounded-lg lg:mb-0 lg:w-1/2">
             <img
-              className="object-cover object-center rounded"
+              className="rounded object-cover object-center"
               alt="hero"
               src="/github.png"
             ></img>
           </div>
-          <div className="flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center">
-            <div className="flex flex-col mb-10 lg:items-start items-center">
-              <div className="flex-grow">
-                <h2 className="text-gray-100 text-5xl title-font font-medium mb-3">
+          <div className="-mb-10 flex flex-col flex-wrap text-center lg:w-1/2 lg:py-6 lg:pl-12 lg:text-left">
+            <div className="mb-10 flex flex-col items-center lg:items-start">
+              <div className="grow">
+                <h2 className="title-font mb-3 text-5xl font-medium text-gray-100">
                   View on Github
                 </h2>
-                <p className="leading-relaxed text-gray-100 text-base">
-                  Our code is fully open-source and we'd love your feedback!
+                <p className="text-base leading-relaxed text-gray-100">
+                  Our code is fully open-source and we&apos;d love your
+                  feedback!
                 </p>
                 <div className="pt-8">
                   <Link
-                    className="inline-flex border-0 btn-primary py-2 px-6 focus:outline-none rounded text-lg"
+                    className="btn-primary inline-flex rounded border-0 px-6 py-2 text-lg focus:outline-none"
                     target="_blank"
                     href="https://github.com/mattiapomelli/zikileaks"
                   >

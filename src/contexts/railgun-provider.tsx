@@ -165,8 +165,6 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
       if (!railgunWallet.railgunWalletInfo?.railgunAddress) {
         return;
       }
-
-      console.log("Heree");
       setWallet({
         id,
         zkAddress: railgunWallet.railgunWalletInfo?.railgunAddress,
@@ -177,6 +175,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
 
       console.log("Connected Railgun wallet: ", railgunWallet);
 
+      // --- Subscribe to Railgun Events ---
       const onBalanceUpdateCallback: BalancesUpdatedCallback = (event) => {
         console.log(">>> Balance Event: ", event);
 

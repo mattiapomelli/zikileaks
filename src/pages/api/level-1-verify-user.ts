@@ -1,12 +1,14 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
 import {
   SismoConnect,
   SismoConnectServerConfig,
   AuthType,
   SismoConnectVerifiedResult,
 } from "@sismo-core/sismo-connect-server";
+
 import { devGroups } from "../../../config";
+
+import type { NextApiRequest, NextApiResponse } from "next";
 
 /************************************************ */
 /********* A SIMPLE IN-MEMORY DATABASE ********** */
@@ -51,7 +53,7 @@ const sismoConnect = SismoConnect(sismoConnectConfig);
 // this is the API route that is called by the SismoConnectButton
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<UserType | void>,
+  res: NextApiResponse,
 ) {
   const { response } = req.body;
 
@@ -68,8 +70,8 @@ export default async function handler(
     const user = {
       // the userId is an app-specific, anonymous identifier of a vault
       // userId = hash(userVaultSecret, appId).
-      id: result.getUserId(AuthType.GITHUB),
-      name: result.getSignedMessage(),
+      id: result.getUserId(AuthType.GITHUB) || "",
+      name: result.getSignedMessage() || "",
     };
 
     // save the user in the user store DB
@@ -78,6 +80,6 @@ export default async function handler(
     res.status(200).send(user);
   } catch (e: any) {
     console.error(e);
-    res.status(400).send(null);
+    res.status(400).send({ message: e.message });
   }
 }
