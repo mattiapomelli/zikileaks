@@ -17,7 +17,7 @@ const DonateStepper = ({ activeStep }: DonateStepperProps) => {
   return (
     <>
       <h3 className="text-6xl font-bold">{activeStep}</h3>
-      <p className="my-10 max-w-sm md:my-20">{stepText}</p>
+      <p className=" text-lg font-medium my-10 max-w-sm md:my-20">{stepText}</p>
       <ul className="steps steps-vertical">
         <li className={`step ${activeStep === 1 ? "step-primary" : ""}`}>
           Create Railgun Wallet

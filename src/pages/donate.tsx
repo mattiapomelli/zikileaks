@@ -17,7 +17,7 @@ const DonatePageInner = ({ zkAddress }: { zkAddress: string }) => {
 
   return (
     <div className="grid grid-cols-2 gap-4">
-      <div className="col-span-1 rounded-xl  bg-primary/30 p-8">
+      <div className="col-span-1 rounded-xl  bg-accent text-secondary p-8">
         <DonateStepper activeStep={activeStep} />
       </div>
       <div className="col-span-1 flex flex-col">
