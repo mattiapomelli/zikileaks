@@ -18,7 +18,7 @@ const DonatePage: NextPage = () => {
     try {
       await shield({
         tokenAddress: ethAddress,
-        tokenAmount: "0.01",
+        tokenAmount: "0.1",
         tokenDecimals: 18,
         recipient: wallet.zkAddress as `0x${string}`,
       });

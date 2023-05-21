@@ -6,15 +6,25 @@ import { PublicationFormText } from "@components/publication/publication-form-te
 import { RailgunComponent } from "@components/verification/railgun-component";
 import { VerificationForm } from "@components/verification/verification-form";
 import { VerificationFormText } from "@components/verification/verification-form-text";
+import { useRailgun } from "@contexts/railgun-provider";
 
 import type { NextPage } from "next";
 
 const Verification: NextPage = () => {
+  const { wallet } = useRailgun();
   const [activeStep, setActiveStep] = React.useState(1);
 
   const handleVerifyClick = () => {
     // Handle the button click event here
     setActiveStep(activeStep + 1);
+  };
+
+  const onVerificationComplete = () => {
+    if (wallet) {
+      setActiveStep(3);
+    } else {
+      setActiveStep(2);
+    }
   };
 
   return (
@@ -32,7 +42,9 @@ const Verification: NextPage = () => {
                   "By submitting reports to ZikiLeaks, you become an integral part of this movement towards a more open and just society. Your voice matters, and we encourage you to share your insights, knowledge, and experiences. Together, we can make a difference!"
                 }
               />
-              <VerificationForm onVerifyClick={handleVerifyClick} />
+              <VerificationForm
+                onVerifyClick={() => onVerificationComplete()}
+              />
             </>
           ) : null}
           {activeStep === 2 ? (

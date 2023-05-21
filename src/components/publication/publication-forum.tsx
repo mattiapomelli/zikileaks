@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 
 import { Spinner } from "@components/basic/spinner";
+import { LensLogin } from "@components/lens-login";
 import { usePublicationComments } from "@lib/use-publication-comments";
 
 import { CreateCommentForm } from "./create-comment-form";
@@ -52,7 +53,10 @@ export const PublicationForum = ({
 }: PublicationForumProps) => {
   return (
     <div className={className}>
-      <h4 className="mb-2 text-xl font-bold">Forum</h4>
+      <div className="flex justify-between">
+        <h4 className="mb-2 text-xl font-bold">Forum</h4>
+        <LensLogin />
+      </div>
       <PublicationForumInner publicationId={publicationId} />
     </div>
   );

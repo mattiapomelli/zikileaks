@@ -17,6 +17,7 @@ import { useAccount, useMutation, useProvider, useSigner } from "wagmi";
 
 import { CHAIN } from "@constants/chains";
 import { getNetwork } from "@constants/networks";
+import { GAS_STATION_API_URL } from "@constants/urls";
 import { useRailgun } from "@contexts/railgun-provider";
 
 interface UsePrivateTransferData {
@@ -29,7 +30,7 @@ interface UsePrivateTransferData {
 const getGasPrices = async () => {
   const { data } = await axios({
     method: "get",
-    url: "https://gasstation-mainnet.matic.network/v2",
+    url: GAS_STATION_API_URL[CHAIN.id],
   });
   const maxFeePerGas = ethers.utils.parseUnits(
     Math.ceil(data.fast.maxFee) + "",
@@ -46,7 +47,11 @@ const getGasPrices = async () => {
   };
 };
 
-export const usePrivateTransfer = () => {
+export const usePrivateTransfer = ({
+  onSuccess,
+}: {
+  onSuccess?: () => void;
+}) => {
   const provider = useProvider();
   const { data: signer } = useSigner();
   const { wallet } = useRailgun();
@@ -234,6 +239,9 @@ export const usePrivateTransfer = () => {
       const receipt = tx.wait();
 
       return receipt;
+    },
+    {
+      onSuccess,
     },
   );
 };

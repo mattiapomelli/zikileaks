@@ -3,10 +3,11 @@ import { NetworkName } from "@railgun-community/shared-models";
 import { EVMGasType } from "@railgun-community/shared-models";
 import { FallbackProviderJsonConfig } from "@railgun-community/shared-models";
 import { BigNumber } from "ethers";
-import { polygon } from "wagmi/chains";
+import { polygon, polygonMumbai } from "wagmi/chains";
 
 import { ethAddress } from "@constants/common";
 
+import { WMATIC_ADDRESS } from "./addresses";
 import { RPC_URL } from "./urls";
 
 type BaseToken = { symbol: string; name: string; logoURI: string };
@@ -27,7 +28,7 @@ export const networks: Networks = {
     blockExplorerUrl: "https://polygonscan.com/",
     railgunNetworkName: NetworkName.Polygon,
     chainId: polygon.id,
-    wethAddress: "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
+    wethAddress: WMATIC_ADDRESS[polygon.id],
     evmGasType: EVMGasType.Type2,
     baseToken: {
       symbol: "MATIC",
@@ -37,6 +38,24 @@ export const networks: Networks = {
     fallbackProviders: {
       chainId: polygon.id,
       providers: [{ provider: RPC_URL[polygon.id], priority: 1, weight: 1 }],
+    },
+  },
+  [polygonMumbai.id]: {
+    blockExplorerUrl: "https://mumbai.polygonscan.com",
+    railgunNetworkName: NetworkName.PolygonMumbai,
+    chainId: polygonMumbai.id,
+    wethAddress: WMATIC_ADDRESS[polygonMumbai.id],
+    evmGasType: EVMGasType.Type2,
+    baseToken: {
+      symbol: "MATIC",
+      name: "MATIC",
+      logoURI: "",
+    },
+    fallbackProviders: {
+      chainId: polygonMumbai.id,
+      providers: [
+        { provider: RPC_URL[polygonMumbai.id], priority: 1, weight: 1 },
+      ],
     },
   },
 };

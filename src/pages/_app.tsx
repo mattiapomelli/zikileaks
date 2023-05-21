@@ -4,7 +4,6 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { LensProvider } from "@lens-protocol/react-web";
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { DefaultSeo } from "next-seo";
-import { ThemeProvider } from "next-themes";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
@@ -50,10 +49,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       <RainbowKitProvider chains={chains}>
         <RailgunProvider>
           <LensProvider config={lensConfig}>
-            <ThemeProvider>
-              <DefaultSeo {...SEO} />
-              {getLayout(<Component {...pageProps} />)}
-            </ThemeProvider>
+            <DefaultSeo {...SEO} />
+            {getLayout(<Component {...pageProps} />)}
           </LensProvider>
         </RailgunProvider>
       </RainbowKitProvider>

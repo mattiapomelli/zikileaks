@@ -1,6 +1,3 @@
-import { NextPage } from "next";
-
-import { Hero } from "../components/landing/hero/hero";
 import Link from "next/link";
 
 function Home() {
