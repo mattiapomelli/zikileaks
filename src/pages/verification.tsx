@@ -28,8 +28,8 @@ const Verification: NextPage = () => {
   };
 
   return (
-    <div className="grid cols-1 md:grid-cols-2 gap-4 mt-20">
-      <div className=" hidden md:block col-span-1 bg-accent text-secondary 0 pt-4 px-2 md:p-8 rounded-xl">
+    <div className="cols-1 mt-20 grid gap-4 md:grid-cols-2">
+      <div className=" 0 col-span-1 hidden rounded-xl bg-accent px-2 pt-4 text-secondary md:block md:p-8">
         <Stepper activeStep={activeStep} />
       </div>
       <div className="col-span-1 flex flex-col">
