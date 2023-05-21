@@ -1,4 +1,5 @@
 import cx from "classnames";
+import Image from "next/image";
 import Link from "next/link";
 
 export interface LogoProps {
@@ -9,8 +10,13 @@ export interface LogoProps {
 export const Logo = ({ href = "/", className }: LogoProps) => {
   return (
     <Link href={href} className="flex items-center gap-3">
-      <span className="block h-7 w-7 rounded-full bg-primary" />
-      <span className={cx("font-black text-xl", className)}>Logo</span>
+      <Image
+        className={"block"}
+        src={"/ziki_sml.svg"}
+        width={200}
+        height={100}
+        alt={"logo"}
+      />
     </Link>
   );
 };

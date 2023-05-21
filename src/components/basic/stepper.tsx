@@ -1,4 +1,5 @@
 import React from "react";
+import { useTransition, animated } from "@react-spring/web";
 
 interface StepperProps {
   activeStep: number;
@@ -14,20 +15,29 @@ const Stepper = ({ activeStep }: StepperProps) => {
     stepText = "Step 3: Complete";
   }
 
+  const transition = useTransition(activeStep, {
+    key: activeStep,
+    from: { opacity: 0, transform: "translateX(-10px)" },
+    enter: { opacity: 1, transform: "translateX(0px)" },
+    leave: { opacity: 0, transform: "translateX(-10px)" },
+  });
+
   return (
     <>
       <h3 className="font-bold text-6xl">{activeStep}</h3>
       <p className="my-10 md:my-20 max-w-sm">{stepText}</p>
       <ul className="steps steps-vertical">
-        <li className={`step ${activeStep === 1 ? "step-primary" : ""}`}>
-          Verify Account
-        </li>
-        <li className={`step ${activeStep === 2 ? "step-primary" : ""}`}>
-          Railgun Wallet creation
-        </li>
-        <li className={`step ${activeStep === 3 ? "step-primary" : ""}`}>
-          Upload Information
-        </li>
+        {transition((style, step) => (
+          <animated.li
+            className={`step ${step === activeStep ? "step-primary" : ""}`}
+            style={style}
+            key={step}
+          >
+            {step === 1 && "Verify Account"}
+            {step === 2 && "Railgun Wallet creation"}
+            {step === 3 && "Upload Information"}
+          </animated.li>
+        ))}
       </ul>
     </>
   );
