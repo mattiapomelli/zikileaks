@@ -36,7 +36,7 @@ const config: HardhatUserConfig = {
       url: 'https://matic-mumbai.chainstacklabs.com',
       accounts,
     },
-    scrollTestnet: {
+    scrollAlpha: {
       url: 'https://scroll-alphanet.public.blastapi.io',
       accounts,
     },
@@ -44,7 +44,18 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: {
       polygonMumbai: process.env.POLYGONSCAN_API_KEY || '',
+      scrollAlpha: 'abc',
     },
+    customChains: [
+      {
+        network: 'scrollAlpha',
+        chainId: 534353,
+        urls: {
+          apiURL: 'https://blockscout.scroll.io/api',
+          browserURL: 'https://blockscout.scroll.io/',
+        },
+      },
+    ],
   },
   contractSizer: {
     alphaSort: true,
