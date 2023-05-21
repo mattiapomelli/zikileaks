@@ -21,6 +21,7 @@ export const RailgunComponent = ({
 
   const createRailgunWallet = async () => {
     const res = await createWallet();
+    console.log("here: ", res);
     if (!res) return;
     setWalletInfo(res);
   };

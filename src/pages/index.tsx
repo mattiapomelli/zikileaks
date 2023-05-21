@@ -18,7 +18,7 @@ function Home() {
             <div className="flex justify-center">
               <Link
                 className="ml-4 inline-flex border-0 bg-tertiary btn-secondary py-2 px-6 focus:outline-none rounded text-lg"
-                href="/news"
+                href="/feed"
               >
                 Read Recent Posts
               </Link>
