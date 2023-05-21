@@ -36,7 +36,7 @@ export const VerificationForm = ({ onVerifyClick }: VerificationFormProps) => {
   const { address } = useAccount();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [userInput, setUserInput] = useState("");
+  // const [userInput, setUserInput] = useState("");
   // const [verifiedUser, setVerifiedUser] = useState<UserType | null>(null);
 
   const {
@@ -80,9 +80,9 @@ export const VerificationForm = ({ onVerifyClick }: VerificationFormProps) => {
   }
 
   // On text input change, we update the userInput react state variable
-  function onUserInput(e: any) {
-    setUserInput(e.target.value);
-  }
+  // function onUserInput(e: any) {
+  //   setUserInput(e.target.value);
+  // }
 
   return (
     <>
@@ -100,8 +100,8 @@ export const VerificationForm = ({ onVerifyClick }: VerificationFormProps) => {
           block
           {...register("organization", { required: "Category is required" })}
           error={errors.organization?.message}
-          value={userInput}
-          onChange={onUserInput}
+          // value={userInput}
+          // onChange={onUserInput}
           disabled={loading}
         />
 

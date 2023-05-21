@@ -1,48 +1,56 @@
-import { NextPage } from "next";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
 
-import { Address } from "@components/address";
 import { Button } from "@components/basic/button";
-import { Spinner } from "@components/basic/spinner";
-import { ethAddress } from "@constants/common";
-import { useRailgun } from "@contexts/railgun-provider";
-import { useRailgunTx } from "@hooks/use-railgun-tx";
+import { DonateStepper } from "@components/basic/donate-stepper";
+import { DonateForm } from "@components/donation/donate-form";
+import { ShieldForm } from "@components/donation/shield-form";
+import { RailgunComponent } from "@components/verification/railgun-component";
 
-const RailgunPage: NextPage = () => {
-  const { loading, wallet } = useRailgun();
-  const { shield, isLoading } = useRailgunTx();
+const DonatePageInner = ({ zkAddress }: { zkAddress: string }) => {
+  const [activeStep, setActiveStep] = React.useState(1);
 
-  const onDonate = async () => {
-    try {
-      await shield({
-        tokenAddress: ethAddress,
-        tokenAmount: "0.01",
-        tokenDecimals: 18,
-        recipient:
-          "0zk1qy8n2jl97x4wmjzfn9cewx2ckq62tzdekupxa0vyttn0m5tt64hnhrv7j6fe3z53l7s3n8dq8scck5ma0cwjevhf8p877l6ryh84c88s5ld8avm75mkpvwtz0q5",
-      });
-    } catch (e) {
-      console.error(e);
-    }
+  const goToNextStep = () => {
+    // Handle the button click event here
+    setActiveStep(activeStep + 1);
   };
 
-  if (loading) {
-    return (
-      <div className="my-14 flex justify-center">
-        <Spinner />
-      </div>
-    );
-  }
-
-  if (!wallet) return null;
-
   return (
-    <div className="mt-10 flex justify-center">
-      <Address address={wallet.zkAddress as `0x${string}`} />
-      <Button onClick={onDonate} loading={isLoading}>
-        Donate
-      </Button>
+    <div className="grid grid-cols-2 gap-4">
+      <div className="col-span-1 rounded-xl  bg-primary/30 p-8">
+        <DonateStepper activeStep={activeStep} />
+      </div>
+      <div className="col-span-1 flex flex-col">
+        <div className="flex-1">
+          {activeStep === 1 && (
+            <RailgunComponent onVerifyClick={goToNextStep} showConnectMessage />
+          )}
+          {activeStep === 2 && <ShieldForm onSuccess={goToNextStep} />}
+          {activeStep === 3 && (
+            <DonateForm zkAddress={zkAddress} onSuccess={goToNextStep} />
+          )}
+          {activeStep === 4 && (
+            <div>
+              <p className="text-2xl font-bold">Thank you for donating!</p>
+              <Link href="/feed">
+                <Button>Go to feed</Button>
+              </Link>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default RailgunPage;
+const DonatePage = () => {
+  const router = useRouter();
+  const zkAddress = router.query["zkAddress"]?.toString();
+
+  if (!zkAddress) return null;
+
+  return <DonatePageInner zkAddress={zkAddress} />;
+};
+
+export default DonatePage;

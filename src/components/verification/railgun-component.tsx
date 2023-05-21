@@ -9,9 +9,13 @@ import { CreateWalletResponse, useRailgun } from "@contexts/railgun-provider";
 
 interface RailGunFormProps {
   onVerifyClick: () => void;
+  showConnectMessage?: boolean;
 }
 
-export const RailgunComponent = ({ onVerifyClick }: RailGunFormProps) => {
+export const RailgunComponent = ({
+  onVerifyClick,
+  showConnectMessage,
+}: RailGunFormProps) => {
   const { loading, wallet, createWallet, setWallet } = useRailgun();
   const [walletInfo, setWalletInfo] = useState<CreateWalletResponse>();
 
@@ -28,6 +32,7 @@ export const RailgunComponent = ({ onVerifyClick }: RailGunFormProps) => {
       id: walletInfo.id,
       zkAddress: walletInfo.zkAddress,
       encryptionKey: walletInfo.encryptionKey,
+      address: walletInfo.address,
     });
     onVerifyClick();
   };
@@ -104,7 +109,39 @@ export const RailgunComponent = ({ onVerifyClick }: RailGunFormProps) => {
   return (
     <>
       <div className="mt-10 flex flex-col items-center justify-center">
-        <Address address={wallet.zkAddress as `0x${string}`} />
+        <h4 className="mb-2 text-lg font-bold">You have a Railgun wallet!</h4>
+
+        <div className="flex flex-col gap-2">
+          <div className="rounded-box flex items-center justify-between gap-4 bg-base-200 px-4 py-3">
+            <div className="mb-6 font-bold">
+              Your public address: <Address address={wallet.address} />
+            </div>
+            <CopyButton
+              label="Copy"
+              text={wallet.address}
+              size="sm"
+              color="neutral"
+            />
+          </div>
+          <div className="rounded-box flex items-center justify-between gap-4 bg-base-200 px-4 py-3">
+            <div className="font-bold">
+              Your ZK Address:{" "}
+              <Address address={wallet.zkAddress as `0x${string}`} />
+            </div>
+            <CopyButton
+              label="Copy"
+              text={wallet.zkAddress}
+              size="sm"
+              color="neutral"
+            />
+          </div>
+          {showConnectMessage && (
+            <p className="mt-2 text-center">
+              Make sure to be connected with this public address
+            </p>
+          )}
+        </div>
+
         <Button className="mt-4" onClick={onVerifyClick}>
           Next
         </Button>

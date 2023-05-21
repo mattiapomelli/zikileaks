@@ -1,5 +1,6 @@
 import { DocumentIcon } from "@heroicons/react/24/outline";
 import { Post } from "@lens-protocol/react-web";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { Button } from "@components/basic/button";
@@ -13,6 +14,10 @@ import { getIpfsUrl } from "@utils/ipfs";
 const CourseInfo = ({ publication }: { publication: Post }) => {
   const fileUri = publication.metadata.attributes.find(
     (attr) => attr.traitType === "fileUri",
+  )?.value;
+
+  const zkAddress = publication.metadata.attributes.find(
+    (attr) => attr.traitType === "zkAddress",
   )?.value;
 
   return (
@@ -33,7 +38,9 @@ const CourseInfo = ({ publication }: { publication: Post }) => {
         <div className="flex items-center gap-3">
           <LikeComponent />
           <DislikeComponent />
-          <Button>Donate</Button>
+          <Link href={`/donate?zkAddress=${zkAddress}`}>
+            <Button>Donate</Button>
+          </Link>
         </div>
       </div>
       <p className="mt-4">{publication.metadata.content}</p>
