@@ -6,8 +6,14 @@ import "./src/env.mjs";
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  transpilePackages: ["@lens-protocol"],
   images: {
-    domains: [],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
   webpack: (config) => {
     config.module.rules.push({
