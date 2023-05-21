@@ -36,7 +36,7 @@ const CourseInfo = ({ publication }: { publication: Post }) => {
           <Button>Donate</Button>
         </div>
       </div>
-      <p className="mt-4">{publication.metadata.description}</p>
+      <p className="mt-4">{publication.metadata.content}</p>
       <PublicationForum publicationId={publication.id} className="mt-6" />
     </div>
   );

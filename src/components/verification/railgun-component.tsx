@@ -103,8 +103,11 @@ export const RailgunComponent = ({ onVerifyClick }: RailGunFormProps) => {
 
   return (
     <>
-      <div className="mt-10 flex justify-center">
+      <div className="mt-10 flex flex-col items-center justify-center">
         <Address address={wallet.zkAddress as `0x${string}`} />
+        <Button className="mt-4" onClick={onVerifyClick}>
+          Next
+        </Button>
       </div>
     </>
   );
