@@ -30,7 +30,11 @@ const DonatePageInner = ({ zkAddress }: { zkAddress: string }) => {
           )}
           {activeStep === 3 && (
             <div>
-              <p className="text-2xl font-bold">Thank you for donating!</p>
+              <h3 className="mb-4 text-2xl font-bold">You made it!</h3>
+              <p className="mb-4">
+                Thank you for supporting whistleblowers on Zikileaks! Each
+                donation makes possible the freedom of information movement
+              </p>
               <Link href="/feed">
                 <Button>Go to feed</Button>
               </Link>

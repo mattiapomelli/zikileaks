@@ -55,7 +55,7 @@ export const TransferForm = ({ onSuccess, zkAddress }: TransferProps) => {
   if (!wallet) return null;
 
   return (
-    <div className="mt-10 flex flex-col items-center justify-center gap-4">
+    <div className="mt-10 flex flex-col justify-center gap-4">
       <h4 className="text-lg font-bold">Donate</h4>
       <form onSubmit={onSubmit} className="flex flex-col gap-2">
         <Input

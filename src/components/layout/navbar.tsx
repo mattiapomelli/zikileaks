@@ -1,4 +1,7 @@
 import { Transition } from "@headlessui/react";
+import cx from "classnames";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useAccount } from "wagmi";
 
 import { Logo } from "@components/basic/logo";
@@ -8,6 +11,26 @@ import { WalletStatus } from "@components/wallet/wallet-status";
 import { useTransitionControl } from "@hooks/use-transition-control";
 
 import { Container } from "./container";
+
+interface NavItemProps {
+  text: string;
+  href: string;
+}
+
+const NavItem = ({ text, href }: NavItemProps) => {
+  const router = useRouter();
+
+  return (
+    <Link
+      href={href}
+      className={cx("rounded-btn py-2 px-4 font-medium hover:bg-base-200", {
+        "bg-base-200": router.pathname.startsWith(href),
+      })}
+    >
+      {text}
+    </Link>
+  );
+};
 
 export const Navbar = () => {
   const { isConnecting, isReconnecting } = useAccount();
@@ -28,6 +51,10 @@ export const Navbar = () => {
           leaveTo="opacity-0"
         >
           <div className="flex items-center gap-4">
+            <div className="hidden items-center gap-2 md:flex">
+              <NavItem text="Feed" href="/feed" />
+              <NavItem text="Create publication" href="/verification" />
+            </div>
             {/* <ThemeToggle /> */}
             <WalletStatus />
             {/* <LensLogin /> */}

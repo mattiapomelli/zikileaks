@@ -1,4 +1,3 @@
-import cx from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -7,7 +6,7 @@ export interface LogoProps {
   className?: string;
 }
 
-export const Logo = ({ href = "/", className }: LogoProps) => {
+export const Logo = ({ href = "/" }: LogoProps) => {
   return (
     <Link href={href} className="flex items-center gap-3">
       <Image

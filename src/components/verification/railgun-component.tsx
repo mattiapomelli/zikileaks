@@ -37,6 +37,9 @@ export const RailgunComponent = ({
     });
     onVerifyClick();
   };
+
+  console.log("Loading: ", loading);
+
   if (loading) {
     return (
       <div className="my-14 flex justify-center">
@@ -139,7 +142,7 @@ export const RailgunComponent = ({
             />
           </div>
           {showConnectMessage && (
-            <div className="rounded-box mt-2 bg-warning/20 p-4 text-center text-white text-medium">
+            <div className="text-medium rounded-box mt-2 bg-warning/20 p-4 text-center text-white">
               Please make sure to be connected with your Railgun public address
               in your wallet. You might need to import it.
             </div>

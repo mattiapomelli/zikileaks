@@ -38,7 +38,7 @@ const DonatePage: NextPage = () => {
   if (!wallet) return null;
 
   return (
-    <div className="mt-10 flex flex-col items-center justify-center gap-4">
+    <div className="mt-10 flex flex-col justify-center gap-4">
       <Address address={wallet.zkAddress as `0x${string}`} />
       <p>Private Balance: {ethers.utils.formatEther(balance)}</p>
       <Button onClick={onDonate} loading={isLoading} disabled={isLoading}>

@@ -17,9 +17,9 @@ export const DonateForm = ({ onSuccess, zkAddress }: DonateFormProps) => {
     <div>
       <h1 className="text-2xl font-bold">Donate</h1>
       <p>
-        In order to donate anonimously, you need to first shield your funds
+        In order to donate anonimously, you need to first shield your tokens
         (make them private). If then amount that you want to donate is more than
-        your current private balance, shield more tokens.
+        your current private balance, please shield more tokens first.
       </p>
       <p className="mt-4">
         <b>Your Private Balance: </b>
