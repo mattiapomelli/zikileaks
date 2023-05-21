@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { DocumentIcon } from "@heroicons/react/24/outline";
 import { Post } from "@lens-protocol/react-web";
 import Link from "next/link";
@@ -20,8 +22,19 @@ const CourseInfo = ({ publication }: { publication: Post }) => {
     (attr) => attr.traitType === "zkAddress",
   )?.value;
 
+  const [vote, SetVote] = useState(Math.floor(Math.random() * 100));
+
+  const handleUpVote = () => {
+    // Handle the button click event here
+    SetVote(vote + 1);
+  };
+  const handleDownVote = () => {
+    // Handle the button click event here
+    SetVote(vote - 1);
+  };
+
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-2">
+    <div className="mx-auto flex max-w-2xl flex-col gap-2 text-accent">
       <h1 className="my-4 text-3xl font-bold">{publication.metadata.name}</h1>
       <div className="flex items-center justify-between">
         {fileUri && (
@@ -36,8 +49,9 @@ const CourseInfo = ({ publication }: { publication: Post }) => {
           </a>
         )}
         <div className="flex items-center gap-3">
-          <LikeComponent />
-          <DislikeComponent />
+          <p className="font-bold"> {vote}</p>
+          <LikeComponent onUpVote={handleUpVote} />
+          <DislikeComponent onDownVote={handleDownVote} />
           <Link href={`/donate?zkAddress=${zkAddress}`}>
             <Button>Donate</Button>
           </Link>

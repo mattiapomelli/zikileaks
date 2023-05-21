@@ -18,6 +18,7 @@ export function DislikeComponent({ onDownVote }: DislikeProps) {
 
   const handleClick = () => {
     setIsClicked(!isClicked);
+
     onDownVote();
   };
 

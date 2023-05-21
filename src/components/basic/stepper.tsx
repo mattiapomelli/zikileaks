@@ -10,10 +10,18 @@ const Stepper = ({ activeStep }: StepperProps) => {
     "Railgun Wallet creation",
     "Upload Information",
   ];
+  const stepsDescription = [
+    "Verify your account to get started",
+    "Create a Railgun Wallet to store your information",
+    "Upload your information to the ZikiLeaks database",
+  ];
 
   return (
     <>
       <h3 className="font-bold text-6xl">{activeStep}</h3>
+      <p className="max-w-sm my-4 font-bold text-lg">
+        {stepsDescription[0 + activeStep]}
+      </p>
       <ul className="steps steps-vertical  mb-2 text-sm md:text-md">
         {steps.map((step, index) => (
           <li

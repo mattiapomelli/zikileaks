@@ -1,3 +1,4 @@
+import { Button } from "@components/basic/button";
 import Link from "next/link";
 
 function Home() {
@@ -17,7 +18,7 @@ function Home() {
             </p>
             <div className="flex justify-center">
               <Link
-                className="ml-4 inline-flex border-0 bg-tertiary btn-secondary py-2 px-6 focus:outline-none rounded text-lg"
+                className="ml-4 inline-flex border-0 btn-accent py-2 px-6 focus:outline-none rounded text-lg"
                 href="/feed"
               >
                 Read Recent Posts
