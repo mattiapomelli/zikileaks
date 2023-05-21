@@ -231,7 +231,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
     // Current block numbers for each chain when wallet was first created.
     // If unknown, provide undefined.
     const creationBlockNumberMap = {
-      [CHAIN.name]: block.number,
+      [CHAIN.name.replace(" ", "_")]: block.number,
     };
 
     const railgunWallet = await createRailgunWallet(
@@ -253,6 +253,7 @@ export const RailgunProvider = ({ children }: { children: ReactNode }) => {
       JSON.stringify({
         encryptionKey,
         id: railgunWallet.railgunWalletInfo.id,
+        address: wallet.address,
       }),
     );
 
