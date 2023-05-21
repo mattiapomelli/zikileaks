@@ -5,3 +5,9 @@ export const WMATIC_ADDRESS: Record<number, string> = {
   [polygonMumbai.id]: "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889",
   [hardhat.id]: "",
 };
+
+export const ZIKILEAKS_ADDRESS: Record<number, string> = {
+  [polygon.id]: "",
+  [polygonMumbai.id]: "0x110b2c58ea4621eC417EB6e0F6fBfa7033d6181A",
+  [hardhat.id]: "",
+};

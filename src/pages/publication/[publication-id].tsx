@@ -8,10 +8,35 @@ import { Spinner } from "@components/basic/spinner";
 import { DislikeComponent } from "@components/icons/dislike-component";
 import { LikeComponent } from "@components/icons/like-component";
 import { PublicationForum } from "@components/publication/publication-forum";
+import { useDownvotePublicaion } from "@lib/use-downvote-publication";
 import { useGetPublication } from "@lib/use-get-publication";
+import { useHasDownvotedPublication } from "@lib/use-has-downvoted-publication";
+import { useHasUpvotedPublication } from "@lib/use-has-upvoted-publication";
+import { useUpvotePublicaion } from "@lib/use-upvote-publication";
 import { getIpfsUrl } from "@utils/ipfs";
 
 const CourseInfo = ({ publication }: { publication: Post }) => {
+  const { data: hasUpvotedPublication, refetch: refetchHasUpvoted } =
+    useHasUpvotedPublication(publication.id);
+
+  const { data: hasDownvotedPublication, refetch: refetchHasDownvoted } =
+    useHasDownvotedPublication(publication.id);
+
+  const { mutate: upvotePublication } = useUpvotePublicaion({
+    onSuccess() {
+      refetchHasUpvoted;
+    },
+  });
+  const { mutate: downvotePublication } = useDownvotePublicaion({
+    onSuccess() {
+      refetchHasDownvoted;
+    },
+  });
+
+  const hasVoted = hasUpvotedPublication || hasDownvotedPublication;
+
+  console.log("Has voted: ", hasVoted);
+
   const fileUri = publication.metadata.attributes.find(
     (attr) => attr.traitType === "fileUri",
   )?.value;
@@ -19,6 +44,18 @@ const CourseInfo = ({ publication }: { publication: Post }) => {
   const zkAddress = publication.metadata.attributes.find(
     (attr) => attr.traitType === "zkAddress",
   )?.value;
+
+  const onUpvotePublication = () => {
+    upvotePublication({
+      publicationId: publication.id,
+    });
+  };
+
+  const onDownvotePublication = () => {
+    downvotePublication({
+      publicationId: publication.id,
+    });
+  };
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-2">
@@ -36,8 +73,16 @@ const CourseInfo = ({ publication }: { publication: Post }) => {
           </a>
         )}
         <div className="flex items-center gap-3">
-          <LikeComponent />
-          <DislikeComponent />
+          <LikeComponent
+            onUpVote={onUpvotePublication}
+            isActive={hasUpvotedPublication}
+            disabled={hasVoted}
+          />
+          <DislikeComponent
+            onDownVote={onDownvotePublication}
+            isActive={hasDownvotedPublication}
+            disabled={hasVoted}
+          />
           <Link href={`/donate?zkAddress=${zkAddress}`}>
             <Button>Donate</Button>
           </Link>
