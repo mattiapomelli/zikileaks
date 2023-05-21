@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 export const Spinner = ({ className }: { className?: string }) => {
   return (
     <svg
-      className={twMerge(cx("absolute w-4 animate-spin", className))}
+      className={twMerge(cx("w-4 animate-spin", className))}
       width="152"
       height="152"
       viewBox="0 0 152 152"
