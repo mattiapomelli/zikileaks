@@ -136,9 +136,10 @@ export const RailgunComponent = ({
             />
           </div>
           {showConnectMessage && (
-            <p className="mt-2 text-center">
-              Make sure to be connected with this public address
-            </p>
+            <div className="rounded-box mt-2 bg-warning/20 p-4 text-center">
+              Please make sure to be connected with your Railgun public address
+              in your wallet. You might need to import it.
+            </div>
           )}
         </div>
 

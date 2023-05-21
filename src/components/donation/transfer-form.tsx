@@ -3,40 +3,42 @@ import { useForm } from "react-hook-form";
 import { Button } from "@components/basic/button";
 import { Input } from "@components/basic/input";
 import { Spinner } from "@components/basic/spinner";
-import { ethAddress } from "@constants/common";
+import { WMATIC_ADDRESS } from "@constants/addresses";
+import { CHAIN } from "@constants/chains";
 import { useRailgun } from "@contexts/railgun-provider";
-import { useShield } from "@hooks/use-shield";
+import { usePrivateTransfer } from "@hooks/use-private-transfer";
 
-interface ShieldFormProps {
-  onSuccess: () => void;
-}
-
-interface ShieldFields {
+interface TransferFields {
   amount: string;
 }
 
-export const ShieldForm = ({}: ShieldFormProps) => {
-  const { loading, wallet } = useRailgun();
-  const { shield, isLoading } = useShield();
+interface TransferProps {
+  onSuccess: () => void;
+  zkAddress: string;
+}
+
+export const TransferForm = ({ onSuccess, zkAddress }: TransferProps) => {
+  const { loading, wallet, balance } = useRailgun();
+  const { mutate: transfer, isLoading } = usePrivateTransfer({
+    onSuccess,
+  });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-  } = useForm<ShieldFields>();
+  } = useForm<TransferFields>();
 
   const onSubmit = handleSubmit(async (data) => {
     if (!wallet) return;
 
     try {
-      await shield({
-        tokenAddress: ethAddress,
+      transfer({
+        tokenAddress: WMATIC_ADDRESS[CHAIN.id],
         tokenAmount: data.amount,
         tokenDecimals: 18,
-        recipient: wallet.zkAddress as `0x${string}`,
+        recipient: zkAddress,
       });
-      reset();
     } catch (e) {
       console.error(e);
     }
@@ -54,7 +56,7 @@ export const ShieldForm = ({}: ShieldFormProps) => {
 
   return (
     <div className="mt-10 flex flex-col items-center justify-center gap-4">
-      <h4 className="text-lg font-bold">Get more private tokens</h4>
+      <h4 className="text-lg font-bold">Donate</h4>
       <form onSubmit={onSubmit} className="flex flex-col gap-2">
         <Input
           label="Amount"
@@ -66,8 +68,12 @@ export const ShieldForm = ({}: ShieldFormProps) => {
           disabled={loading}
         />
 
-        <Button type="submit" loading={isLoading} disabled={isLoading}>
-          Shield
+        <Button
+          type="submit"
+          loading={isLoading}
+          disabled={isLoading || balance.eq(0)}
+        >
+          Donate
         </Button>
       </form>
     </div>

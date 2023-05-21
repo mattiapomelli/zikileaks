@@ -9,9 +9,9 @@ const DonateStepper = ({ activeStep }: DonateStepperProps) => {
   if (activeStep === 1) {
     stepText = "Step 1: Create Railgun Wallet";
   } else if (activeStep === 2) {
-    stepText = "Step 2: Shield Tokens";
+    stepText = "Step 2: Donate";
   } else if (activeStep === 3) {
-    stepText = "Step 3: Donate";
+    stepText = "Step 3: Success!";
   }
 
   return (
@@ -23,10 +23,10 @@ const DonateStepper = ({ activeStep }: DonateStepperProps) => {
           Create Railgun Wallet
         </li>
         <li className={`step ${activeStep === 2 ? "step-primary" : ""}`}>
-          Shield Tokens
+          Donate
         </li>
         <li className={`step ${activeStep === 3 ? "step-primary" : ""}`}>
-          Donate
+          Success!
         </li>
       </ul>
     </>

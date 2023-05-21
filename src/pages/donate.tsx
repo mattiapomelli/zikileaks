@@ -5,7 +5,6 @@ import React from "react";
 import { Button } from "@components/basic/button";
 import { DonateStepper } from "@components/basic/donate-stepper";
 import { DonateForm } from "@components/donation/donate-form";
-import { ShieldForm } from "@components/donation/shield-form";
 import { RailgunComponent } from "@components/verification/railgun-component";
 
 const DonatePageInner = ({ zkAddress }: { zkAddress: string }) => {
@@ -26,11 +25,10 @@ const DonatePageInner = ({ zkAddress }: { zkAddress: string }) => {
           {activeStep === 1 && (
             <RailgunComponent onVerifyClick={goToNextStep} showConnectMessage />
           )}
-          {activeStep === 2 && <ShieldForm onSuccess={goToNextStep} />}
-          {activeStep === 3 && (
-            <DonateForm zkAddress={zkAddress} onSuccess={goToNextStep} />
+          {activeStep === 2 && (
+            <DonateForm onSuccess={goToNextStep} zkAddress={zkAddress} />
           )}
-          {activeStep === 4 && (
+          {activeStep === 3 && (
             <div>
               <p className="text-2xl font-bold">Thank you for donating!</p>
               <Link href="/feed">
