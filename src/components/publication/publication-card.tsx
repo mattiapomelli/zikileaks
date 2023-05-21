@@ -1,6 +1,10 @@
-import { useState } from "react";
 import { Post } from "@lens-protocol/react-web";
 import Link from "next/link";
+
+import { useDownvotePublicaion } from "@lib/use-downvote-publication";
+import { useHasDownvotedPublication } from "@lib/use-has-downvoted-publication";
+import { useHasUpvotedPublication } from "@lib/use-has-upvoted-publication";
+import { useUpvotePublicaion } from "@lib/use-upvote-publication";
 
 import { Button } from "../basic/button";
 import { DislikeComponent } from "../icons/dislike-component";
@@ -10,16 +14,38 @@ interface PublicationCardProps {
   post: Post;
 }
 
-export const PublicationCard = ({ post }: PublicationCardProps) => {
-  const [vote, SetVote] = useState(Math.floor(Math.random() * 100));
+export const PublicationCard = ({
+  post: publication,
+}: PublicationCardProps) => {
+  const { data: hasUpvotedPublication, refetch: refetchHasUpvoted } =
+    useHasUpvotedPublication(publication.id);
 
-  const handleUpVote = () => {
-    // Handle the button click event here
-    SetVote(vote + 1);
+  const { data: hasDownvotedPublication, refetch: refetchHasDownvoted } =
+    useHasDownvotedPublication(publication.id);
+
+  const { mutate: upvotePublication } = useUpvotePublicaion({
+    onSuccess() {
+      refetchHasUpvoted;
+    },
+  });
+  const { mutate: downvotePublication } = useDownvotePublicaion({
+    onSuccess() {
+      refetchHasDownvoted;
+    },
+  });
+
+  const hasVoted = hasUpvotedPublication || hasDownvotedPublication;
+
+  const onUpvotePublication = () => {
+    upvotePublication({
+      publicationId: publication.id,
+    });
   };
-  const handleDownVote = () => {
-    // Handle the button click event here
-    SetVote(vote - 1);
+
+  const onDownvotePublication = () => {
+    downvotePublication({
+      publicationId: publication.id,
+    });
   };
 
   return (
@@ -34,22 +60,30 @@ export const PublicationCard = ({ post }: PublicationCardProps) => {
         />
       </div> */}
 
-      <h4 className="mt-1 block text-xl text-accent font-semibold">
-        {post.metadata.name}
+      <h4 className="mt-1 block text-xl font-semibold text-accent">
+        {publication.metadata.name}
       </h4>
 
       <p className="text-base-content/70">
-        {post.metadata.content?.substring(0, 100).concat("...")}
+        {publication.metadata.content?.substring(0, 100).concat("...")}
       </p>
 
       <div className="mt-4 flex w-full items-center justify-between">
-        <Link href={`/publication/${post.id}`}>
+        <Link href={`/publication/${publication.id}`}>
           <Button size="sm">Read</Button>
         </Link>
         <div className="flex gap-2 text-accent">
-          <p className="font-bold"> {vote}</p>
-          <LikeComponent onUpVote={handleUpVote} />
-          <DislikeComponent onDownVote={handleDownVote} />
+          {/* <p className="font-bold"> {vote}</p> */}
+          <LikeComponent
+            onUpVote={onUpvotePublication}
+            isActive={hasUpvotedPublication}
+            disabled={hasVoted}
+          />
+          <DislikeComponent
+            onDownVote={onDownvotePublication}
+            isActive={hasDownvotedPublication}
+            disabled={hasVoted}
+          />
         </div>
       </div>
     </div>
