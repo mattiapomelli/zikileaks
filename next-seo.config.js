@@ -1,6 +1,6 @@
-const title = "My App";
-const description = "This is my awesome app";
-const url = "https://beta.cryvia.xyz/";
+const title = "ZikiLeaks";
+const description = "Decentralized WikiLeaks";
+const url = "https://zikileaks.vercel.app/";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -10,7 +10,7 @@ export default {
   openGraph: {
     type: "website",
     locale: "en_IE",
-    site_name: "My App",
+    site_name: "ZikiLeaks",
     title,
     description,
   },
