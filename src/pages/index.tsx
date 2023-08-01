@@ -1,12 +1,16 @@
+import Image from "next/image";
 import Link from "next/link";
 
 function Home() {
   return (
     <>
-      <section className="body-font text-gray-700">
+      <section className=" text-gray-700">
+        <div className="rounded-box bg-warning/30 p-4 text-center text-white">
+          ⚠️ This is a hackathon project. It is not intended for actual use ⚠️
+        </div>
         <div className="container mx-auto flex flex-col items-center px-5 py-24 md:flex-row">
           <div className="mb-16 flex flex-col items-center text-center md:mb-0 md:w-1/2 md:items-start md:pr-16 md:text-left lg:grow lg:pr-24">
-            <h1 className="title-font mb-4 text-3xl font-medium text-primary sm:text-4xl">
+            <h1 className=" mb-4 text-3xl font-medium text-primary sm:text-4xl">
               Zikileaks helps advocates get sensitive documents published
               without fear.
             </h1>
@@ -17,7 +21,7 @@ function Home() {
             </p>
             <div className="flex justify-center">
               <Link
-                className="bg-tertiary btn-secondary ml-4 inline-flex rounded border-0 px-6 py-2 text-lg focus:outline-none"
+                className=" btn-secondary ml-4 inline-flex rounded border-0 px-6 py-2 text-lg focus:outline-none"
                 href="/feed"
               >
                 Read Recent Posts
@@ -31,21 +35,23 @@ function Home() {
             </div>
           </div>
           <div className="">
-            <img
+            <Image
               className="rounded object-cover object-center"
               alt="hero"
               src="/zikihome.png"
-            ></img>
+              width={202}
+              height={250}
+            />
           </div>
         </div>
       </section>
-      <section className="body-font border-t border-gray-200 text-gray-700">
+      <section className=" border-t border-gray-200 text-gray-700">
         <div className="container mx-auto px-5 py-24">
           <div className="mb-10 flex w-full flex-col text-center">
-            <h1 className="title-font mb-5 text-3xl font-medium text-white sm:text-3xl">
+            <h1 className=" mb-5 text-3xl font-medium text-white sm:text-3xl">
               Whistleblowers, Civilians, and Donors
             </h1>
-            <h2 className="text-s title-font mb-0 font-medium tracking-widest text-primary">
+            <h2 className="  mb-0 font-medium tracking-widest text-primary">
               Uniting to create a more open ecosystem for public information
             </h2>
           </div>
@@ -67,7 +73,7 @@ function Home() {
                       <circle cx="12" cy="7" r="4"></circle>
                     </svg>
                   </div>
-                  <h2 className="title-font text-lg font-medium text-gray-900">
+                  <h2 className=" text-lg font-medium text-gray-900">
                     For Subject Matter Experts
                   </h2>
                 </div>
@@ -100,7 +106,7 @@ function Home() {
                       <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
                     </svg>
                   </div>
-                  <h2 className="title-font text-lg font-medium text-gray-900">
+                  <h2 className=" text-lg font-medium text-gray-900">
                     For Whistleblowers
                   </h2>
                 </div>
@@ -139,7 +145,7 @@ function Home() {
                       <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
                     </svg>
                   </div>
-                  <h2 className="title-font text-lg font-medium text-gray-900">
+                  <h2 className=" text-lg font-medium text-gray-900">
                     For Supporters
                   </h2>
                 </div>
@@ -158,7 +164,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="body-font rounded-md border-t bg-accent text-gray-700 shadow-2xl">
+      <section className=" rounded-md border-t bg-accent text-gray-700 shadow-2xl">
         <div className="container mx-auto flex flex-wrap px-5 py-24">
           <div className="mb-0 w-full lg:mb-0 lg:w-1/2 ">
             <img
@@ -170,7 +176,7 @@ function Home() {
           <div className=" -mb-10 flex flex-col flex-wrap text-center lg:w-1/2 lg:py-6 lg:pl-12 lg:text-left">
             <div className="mb-10 flex flex-col items-center lg:items-start">
               <div className="grow">
-                <h2 className="title-font mb-3 pb-10 text-4xl font-medium text-gray-900">
+                <h2 className=" mb-3 pb-10 text-4xl font-medium text-gray-900">
                   Reach Larger Audiences with Lens 🌿
                 </h2>
                 <p className="text-base leading-relaxed">
@@ -187,10 +193,10 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="body-font border-t border-gray-200 text-gray-700">
+      <section className=" border-t border-gray-200 text-gray-700">
         <div className="container mx-auto px-5 py-24">
           <div className="mb-20 flex w-full flex-col flex-wrap items-center text-center">
-            <h1 className="title-font mb-2 text-5xl font-medium text-gray-100 sm:text-5xl">
+            <h1 className=" mb-2 text-5xl font-medium text-gray-100 sm:text-5xl">
               Proudly Built With
             </h1>
           </div>
@@ -202,10 +208,10 @@ function Home() {
                   className=" shrink-0 object-cover object-center"
                   src="/sismo.png"
                 ></img>
-                <h2 className="title-font fo1t-medium pt-10 text-center text-3xl text-gray-900">
+                <h2 className=" fo1t-medium pt-10 text-center text-3xl text-gray-900">
                   Sismo
                 </h2>
-                <h2 className="title-font pt-5 text-lg font-medium text-gray-900">
+                <h2 className=" pt-5 text-lg font-medium text-gray-900">
                   Sismo enables whistleblowers to verify their employers
                   privately
                 </h2>
@@ -218,10 +224,10 @@ function Home() {
                   className=" shrink-0 object-cover object-center"
                   src="/railgun.png"
                 ></img>
-                <h2 className="title-font fo1t-medium pt-10 text-center text-3xl text-gray-900">
+                <h2 className=" fo1t-medium pt-10 text-center text-3xl text-gray-900">
                   Railgun
                 </h2>
-                <h2 className="title-font pt-5 text-lg font-medium text-gray-900">
+                <h2 className=" pt-5 text-lg font-medium text-gray-900">
                   Railgun enables private peer-to-peer donations and private
                   content posting
                 </h2>
@@ -234,10 +240,10 @@ function Home() {
                   className=" shrink-0 object-cover object-center"
                   src="/lens.png"
                 ></img>
-                <h2 className="title-font fo1t-medium pt-10 text-center text-3xl text-gray-900">
+                <h2 className=" fo1t-medium pt-10 text-center text-3xl text-gray-900">
                   Lens Protocol
                 </h2>
-                <h2 className="title-font pt-5 text-lg font-medium text-gray-900">
+                <h2 className=" pt-5 text-lg font-medium text-gray-900">
                   Lens enables content posting and distribution across platforms
                 </h2>
               </div>
@@ -245,10 +251,10 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="body-font rounded-md border-t border-gray-200 bg-accent text-black shadow-2xl">
+      <section className=" rounded-md border-t border-gray-200 bg-accent text-black shadow-2xl">
         <div className="container  mx-auto py-10">
           <div className="mb-10 flex w-full flex-col text-center">
-            <h1 className="title-font mb-4 text-5xl font-medium text-black sm:text-5xl">
+            <h1 className=" mb-4 text-5xl font-medium text-black sm:text-5xl">
               Our Team
             </h1>
             <p className="mx-auto text-base leading-relaxed lg:w-2/3">
@@ -265,7 +271,7 @@ function Home() {
                   src="https://img.freepik.com/premium-photo/cartoon-ninja-girl-beautiful-japanese-ninja-girl-concept-art-digital-painting-fantasy-illustration_743201-2848.jpg?w=2000"
                 ></img>
                 <div className="grow">
-                  <h2 className="title-font font-medium text-gray-900">
+                  <h2 className=" font-medium text-gray-900">
                     Secret Soheimam
                   </h2>
                   <p className="text-primary-500">Fancy Frontend Officer</p>
@@ -280,7 +286,7 @@ function Home() {
                   src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/633a2327-57a8-4012-bd41-a98836b26238/dewltnz-f2e682de-c6dd-4673-8242-81ca1fc54ae5.jpg/v1/fill/w_1280,h_1280,q_75,strp/anime_girl___ninja___kunoichi_by_allydity2412_dewltnz-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTI4MCIsInBhdGgiOiJcL2ZcLzYzM2EyMzI3LTU3YTgtNDAxMi1iZDQxLWE5ODgzNmIyNjIzOFwvZGV3bHRuei1mMmU2ODJkZS1jNmRkLTQ2NzMtODI0Mi04MWNhMWZjNTRhZTUuanBnIiwid2lkdGgiOiI8PTEyODAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.SmebuLvHfK7MnFqdlR2P71ukZgKmiMiY2s_FU94RXTk"
                 ></img>
                 <div className="grow">
-                  <h2 className="title-font font-medium text-gray-900">
+                  <h2 className=" font-medium text-gray-900">
                     Kinda Anonymous Kirsten
                   </h2>
                   <p className="text-primary-500">Sismo Supercoder</p>
@@ -295,9 +301,7 @@ function Home() {
                   src="https://narutoguides.com/wp-content/uploads/2018/03/Masked-Man.png"
                 ></img>
                 <div className="grow">
-                  <h2 className="title-font font-medium text-gray-900">
-                    Mystery Mattia
-                  </h2>
+                  <h2 className=" font-medium text-gray-900">Mystery Mattia</h2>
                   <p className="text-primary-500">
                     Railgun Representative & Lens Lieutenant
                   </p>
@@ -307,7 +311,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="body-font border-t border-gray-200 text-gray-700">
+      <section className=" border-t border-gray-200 text-gray-700">
         <div className="container mx-auto flex flex-wrap pt-20">
           <div className="mb-10 w-full overflow-hidden rounded-lg lg:mb-0 lg:w-1/2">
             <img
@@ -319,7 +323,7 @@ function Home() {
           <div className="-mb-10 flex flex-col flex-wrap text-center lg:w-1/2 lg:py-6 lg:pl-12 lg:text-left">
             <div className="mb-10 flex flex-col items-center lg:items-start">
               <div className="grow">
-                <h2 className="title-font mb-3 text-5xl font-medium text-gray-100">
+                <h2 className=" mb-3 text-5xl font-medium text-gray-100">
                   View on Github
                 </h2>
                 <p className="text-base leading-relaxed text-gray-100">
